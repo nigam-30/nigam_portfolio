@@ -1,4 +1,4 @@
-# Nigam Mehta — VLSI Design & Hardware Engineering Portfolio
+# Nigam Mehta — Electronics Engineering [VLSI DESIGN & TECHNOLOGY]
 
 A modern, high-performance, responsive portfolio website engineered for **Nigam Mehta**, specializing in **VLSI Design & Technology, RTL Engineering, ASIC Verification, and Edge AI Hardware**.
 
