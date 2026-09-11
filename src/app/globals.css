@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================================
+   THEME 2: EUV LITHOGRAPHY & COBALT EDA (CADENCE/SYNOPSYS VIBE)
+   ======================================================== */
+
+:root {
+  --portfolio-bg: #040714;
+  --portfolio-card: rgba(8, 15, 36, 0.72);
+  --portfolio-primary: #3B82F6;
+  --portfolio-primary-hover: #60A5FA;
+  --portfolio-cyan: #00F2FE;
+  --portfolio-emerald: #10B981;
+  --portfolio-text: #F0F9FF;
+  --portfolio-text-secondary: #94A3B8;
+  
+  --background: #030611;
+  --foreground: var(--portfolio-text);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #030611;
+}
+
+body {
+  color: var(--portfolio-text);
+  background-color: #030611;
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.5;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.16) 0%, transparent 60%),
+    radial-gradient(circle at 85% 50%, rgba(0, 242, 254, 0.10) 0%, transparent 50%),
+    radial-gradient(circle at 15% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Silicon Wafer Substrate Grid Layer - High-Tech Blue Tone */
+.wafer-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+}
+
+/* Ambient Circuit Lighting Orbs - Cobalt Sapphire & Laser Cyan */
+.orb-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.16;
+  will-change: transform;
+}
+.orb-purple {
+  background: #3B82F6;
+  width: 500px;
+  height: 500px;
+  top: -120px;
+  left: -100px;
+}
+.orb-cyan {
+  background: #00F2FE;
+  width: 450px;
+  height: 450px;
+  bottom: -100px;
+  right: -80px;
+}
+.orb-emerald {
+  background: #10B981;
+  width: 400px;
+  height: 400px;
+  top: 45%;
+  left: 60%;
+}
+
+/* Custom Scrollbar - Sapphire Cobalt */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #030611;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 3px;
+  border: 1px solid rgba(0, 242, 254, 0.25);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3B82F6;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.75);
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 242, 254, 0.35);
+  color: #FFFFFF;
+}
+
+/* Glassmorphic Silicon PCB Cards - Cobalt Sapphire Border */
+.bg-portfolio-card {
+  background-color: rgba(8, 15, 36, 0.72) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(59, 130, 246, 0.22) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.bg-portfolio-card:hover {
+  border-color: rgba(0, 242, 254, 0.5) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), 
+              0 0 28px rgba(59, 130, 246, 0.25), 
+              0 0 16px rgba(0, 242, 254, 0.2) !important;
+}
+
+/* Scrolled Navbar Override */
+nav.bg-portfolio-bg\/85 {
+  background: rgba(4, 7, 20, 0.88) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.22) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Circuit Trace Animations */
+@keyframes tracePulse {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.2;
+  }
+}
+
+@keyframes signalPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 8px #00F2FE);
+  }
+}
+
+.animate-signal {
+  animation: signalPulse 3s ease-in-out infinite;
+}
+
+/* Circuit trace path glow */
+.circuit-line {
+  stroke-dasharray: 8 6;
+  animation: tracePulse 15s linear infinite;
+}
+
+/* Card Circuit Border Hover Beam - Sapphire/Cyan Conic */
+.circuit-card-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.circuit-card-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    transparent,
+    rgba(0, 242, 254, 0.35),
+    rgba(59, 130, 246, 0.55),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  animation: rotateBorder 6s linear infinite;
+}
+
+.circuit-card-container:hover::before {
+  opacity: 1;
+}
+
+@keyframes rotateBorder {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+section {
+  position: relative;
+  z-index: 10;
+}
+
+/* Chip Tech Pinout markers */
+.chip-pin-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #00F2FE;
+  box-shadow: 0 0 8px #00F2FE;
+}
