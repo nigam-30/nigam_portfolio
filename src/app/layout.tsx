@@ -18,7 +18,7 @@ const SiliconParticles = dynamic(() => import("@/components/SiliconParticles"), 
 });
 
 export const metadata: Metadata = {
-  title: "Nigam Mehta | VLSI & AI Hardware Engineer",
+  title: "Nigam Mehta",
   description:
     "Professional portfolio of Nigam Mehta, an Electronics Engineering student at SAKEC Mumbai specializing in VLSI Design, RTL Design, ASIC Verification, and AI Hardware.",
   keywords:
