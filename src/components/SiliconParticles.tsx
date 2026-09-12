@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Electron {
   x: number;
@@ -18,24 +18,30 @@ interface Electron {
 
 export default function SiliconParticles() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Check prefers-reduced-motion
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    // Check if mobile, touch, or prefers-reduced-motion
+    if (
+      typeof window === "undefined" ||
+      window.innerWidth < 768 ||
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      setIsTouchDevice(true);
       return;
     }
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
 
     let animationFrameId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const isMobile = width < 768;
-    const maxParticles = isMobile ? 18 : 38;
+    const maxParticles = 24;
     const particles: Electron[] = [];
 
     const colors = [
@@ -46,18 +52,18 @@ export default function SiliconParticles() {
 
     const createParticle = (): Electron => {
       const isHorizontal = Math.random() > 0.5;
-      const speed = 0.5 + Math.random() * 0.9;
+      const speed = 0.5 + Math.random() * 0.7;
       return {
         x: Math.random() * width,
         y: Math.random() * height,
         vx: isHorizontal ? (Math.random() > 0.5 ? speed : -speed) : 0,
         vy: !isHorizontal ? (Math.random() > 0.5 ? speed : -speed) : 0,
-        size: 1 + Math.random() * 1.8,
-        alpha: 0.1 + Math.random() * 0.7,
+        size: 1.2 + Math.random() * 1.5,
+        alpha: 0.15 + Math.random() * 0.65,
         color: colors[Math.floor(Math.random() * colors.length)],
         lifetime: 0,
-        maxLifetime: 200 + Math.random() * 300,
-        pathLength: 80 + Math.random() * 200,
+        maxLifetime: 220 + Math.random() * 260,
+        pathLength: 80 + Math.random() * 180,
         traveled: 0,
       };
     };
@@ -66,18 +72,36 @@ export default function SiliconParticles() {
       particles.push(createParticle());
     }
 
+    let resizeTimer: NodeJS.Timeout;
     const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (!canvas) return;
+        if (window.innerWidth < 768) {
+          setIsTouchDevice(true);
+          return;
+        }
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }, 150);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrameId);
+      } else {
+        animationFrameId = requestAnimationFrame(render);
+      }
     };
 
     window.addEventListener("resize", handleResize);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      particles.forEach((p, idx) => {
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
         p.lifetime++;
         p.traveled += Math.abs(p.vx) + Math.abs(p.vy);
         p.x += p.vx;
@@ -86,12 +110,12 @@ export default function SiliconParticles() {
         // 90 or 45 degree turn at trace junctions
         if (p.traveled > p.pathLength) {
           p.traveled = 0;
-          p.pathLength = 60 + Math.random() * 180;
+          p.pathLength = 60 + Math.random() * 160;
           if (p.vx !== 0) {
-            p.vy = Math.random() > 0.5 ? 0.7 : -0.7;
+            p.vy = Math.random() > 0.5 ? 0.6 : -0.6;
             p.vx = 0;
           } else {
-            p.vx = Math.random() > 0.5 ? 0.7 : -0.7;
+            p.vx = Math.random() > 0.5 ? 0.6 : -0.6;
             p.vy = 0;
           }
         }
@@ -110,55 +134,61 @@ export default function SiliconParticles() {
 
         // Reset if lifetime expired
         if (p.lifetime >= p.maxLifetime) {
-          particles[idx] = createParticle();
-          return;
+          particles[i] = createParticle();
+          continue;
         }
 
         const currentAlpha = p.alpha * fade;
 
-        // Draw electron trace packet with glow
+        // Draw electron trace packet with 2-pass hardware accelerated glow (no expensive shadowBlur)
+        // Outer halo glow
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = `${p.color}${currentAlpha * 0.25})`;
+        ctx.fill();
+
+        // Inner bright core
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = `${p.color}${currentAlpha})`;
-        ctx.shadowColor = `${p.color}0.8)`;
-        ctx.shadowBlur = 6;
         ctx.fill();
-        ctx.shadowBlur = 0; // reset for performance
 
         // Subtle trace trail line behind particle
         if (p.vx !== 0) {
           ctx.beginPath();
-          ctx.moveTo(p.x - p.vx * 8, p.y);
+          ctx.moveTo(p.x - p.vx * 7, p.y);
           ctx.lineTo(p.x, p.y);
-          ctx.strokeStyle = `${p.color}${currentAlpha * 0.35})`;
+          ctx.strokeStyle = `${p.color}${currentAlpha * 0.3})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         } else if (p.vy !== 0) {
           ctx.beginPath();
-          ctx.moveTo(p.x, p.y - p.vy * 8);
+          ctx.moveTo(p.x, p.y - p.vy * 7);
           ctx.lineTo(p.x, p.y);
-          ctx.strokeStyle = `${p.color}${currentAlpha * 0.35})`;
+          ctx.strokeStyle = `${p.color}${currentAlpha * 0.3})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
-      });
+      }
 
       animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    animationFrameId = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
+  if (isTouchDevice) return null;
+
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-[1] opacity-75"
-      style={{ willChange: "transform" }}
+      className="fixed inset-0 pointer-events-none z-[1] opacity-70"
     />
   );
 }

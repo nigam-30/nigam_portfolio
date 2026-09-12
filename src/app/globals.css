@@ -8,7 +8,7 @@
 
 :root {
   --portfolio-bg: #040714;
-  --portfolio-card: rgba(8, 15, 36, 0.72);
+  --portfolio-card: rgba(8, 15, 36, 0.92);
   --portfolio-primary: #3B82F6;
   --portfolio-primary-hover: #60A5FA;
   --portfolio-cyan: #00F2FE;
@@ -23,6 +23,8 @@
 html {
   scroll-behavior: smooth;
   background-color: #030611;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -35,7 +37,6 @@ body {
     radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.16) 0%, transparent 60%),
     radial-gradient(circle at 85% 50%, rgba(0, 242, 254, 0.10) 0%, transparent 50%),
     radial-gradient(circle at 15% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
-  background-attachment: fixed;
 }
 
 /* Silicon Wafer Substrate Grid Layer - High-Tech Blue Tone */
@@ -46,7 +47,7 @@ body {
     linear-gradient(to bottom, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
 }
 
-/* Ambient Circuit Lighting Orbs - Cobalt Sapphire & Laser Cyan */
+/* Ambient Circuit Lighting Orbs - Zero raster blur overhead with GPU radial gradients */
 .orb-container {
   position: fixed;
   inset: 0;
@@ -57,28 +58,28 @@ body {
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(140px);
-  opacity: 0.16;
-  will-change: transform;
+  pointer-events: none;
+  opacity: 0.22;
+  transform: translateZ(0);
 }
 .orb-purple {
-  background: #3B82F6;
-  width: 500px;
-  height: 500px;
+  background: radial-gradient(circle, #3B82F6 0%, rgba(59, 130, 246, 0.45) 35%, transparent 70%);
+  width: 600px;
+  height: 600px;
   top: -120px;
   left: -100px;
 }
 .orb-cyan {
-  background: #00F2FE;
-  width: 450px;
-  height: 450px;
+  background: radial-gradient(circle, #00F2FE 0%, rgba(0, 242, 254, 0.4) 35%, transparent 70%);
+  width: 500px;
+  height: 500px;
   bottom: -100px;
   right: -80px;
 }
 .orb-emerald {
-  background: #10B981;
-  width: 400px;
-  height: 400px;
+  background: radial-gradient(circle, #10B981 0%, rgba(16, 185, 129, 0.35) 35%, transparent 70%);
+  width: 450px;
+  height: 450px;
   top: 45%;
   left: 60%;
 }
@@ -106,28 +107,26 @@ body {
   color: #FFFFFF;
 }
 
-/* Glassmorphic Silicon PCB Cards - Cobalt Sapphire Border */
+/* High Performance Semiconductor PCB Cards */
 .bg-portfolio-card {
-  background-color: rgba(8, 15, 36, 0.72) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
+  background-color: rgba(7, 13, 31, 0.92) !important;
   border: 1px solid rgba(59, 130, 246, 0.22) !important;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45) !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease !important;
 }
 
 .bg-portfolio-card:hover {
   border-color: rgba(0, 242, 254, 0.5) !important;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), 
-              0 0 28px rgba(59, 130, 246, 0.25), 
-              0 0 16px rgba(0, 242, 254, 0.2) !important;
+              0 0 24px rgba(59, 130, 246, 0.22), 
+              0 0 14px rgba(0, 242, 254, 0.18) !important;
 }
 
-/* Scrolled Navbar Override */
+/* Floating Sticky Navbar - Blur isolated only to fixed header */
 nav.bg-portfolio-bg\/85 {
-  background: rgba(4, 7, 20, 0.88) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
+  background: rgba(4, 7, 20, 0.92) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border-bottom: 1px solid rgba(59, 130, 246, 0.22) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
 }
@@ -155,7 +154,6 @@ nav.bg-portfolio-bg\/85 {
   50% {
     opacity: 1;
     transform: scale(1.02);
-    filter: drop-shadow(0 0 8px #00F2FE);
   }
 }
 
@@ -189,7 +187,7 @@ nav.bg-portfolio-bg\/85 {
     transparent 40%
   );
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
   pointer-events: none;
   animation: rotateBorder 6s linear infinite;
 }
@@ -209,6 +207,12 @@ section {
   z-index: 10;
 }
 
+/* Section Rendering Optimizations for Silky Smooth Scrolling */
+#projects, #experience, #certifications, #skills {
+  content-visibility: auto;
+  contain-intrinsic-size: 600px;
+}
+
 /* Chip Tech Pinout markers */
 .chip-pin-dot {
   width: 5px;
@@ -216,4 +220,14 @@ section {
   border-radius: 50%;
   background-color: #00F2FE;
   box-shadow: 0 0 8px #00F2FE;
+}
+
+/* Mobile Specific Optimizations */
+@media (max-width: 768px) {
+  .orb {
+    display: none;
+  }
+  .circuit-card-container::before {
+    display: none;
+  }
 }

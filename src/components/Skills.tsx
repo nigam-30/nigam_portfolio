@@ -155,14 +155,13 @@ export default function Skills() {
                   {/* Interconnected Pinout Chips */}
                   <div className="flex flex-wrap gap-2 pt-1">
                     {group.skills.map((skill, skillIdx) => (
-                      <motion.span
+                      <span
                         key={skillIdx}
-                        whileHover={{ scale: 1.05 }}
-                        className="px-2.5 py-1 rounded-md bg-[#070b16]/85 border border-portfolio-primary/20 text-xs font-mono text-portfolio-text hover:text-portfolio-cyan hover:border-portfolio-cyan transition-colors duration-200 flex items-center gap-1.5 cursor-default shadow-sm"
+                        className="px-2.5 py-1 rounded-md bg-[#070b16]/85 border border-portfolio-primary/20 text-xs font-mono text-portfolio-text hover:text-portfolio-cyan hover:border-portfolio-cyan hover:scale-105 transition-all duration-150 flex items-center gap-1.5 cursor-default shadow-sm"
                       >
                         <span className="w-1 h-1 rounded-full bg-portfolio-primary/70" />
                         <span>{skill}</span>
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
                 </div>

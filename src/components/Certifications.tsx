@@ -156,8 +156,7 @@ export default function Certifications() {
             <motion.div
               key={cert.title + idx}
               variants={cardVariants}
-              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-              className="bg-portfolio-card border border-portfolio-primary/20 hover:border-portfolio-primary/50 rounded-xl p-5 flex flex-col justify-between group shadow-glow hover:shadow-glow-hover will-change-transform transition-all duration-300"
+              className="bg-portfolio-card border border-portfolio-primary/20 hover:border-portfolio-primary/50 hover:scale-[1.015] rounded-xl p-5 flex flex-col justify-between group shadow-glow hover:shadow-glow-hover transition-transform duration-200"
             >
               <div className="space-y-1.5">
                 <h3 className="text-sm sm:text-base font-bold text-portfolio-text leading-snug group-hover:text-portfolio-primary transition-colors duration-200">

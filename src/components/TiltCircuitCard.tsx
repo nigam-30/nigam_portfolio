@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 interface TiltCircuitCardProps {
@@ -16,6 +16,18 @@ export default function TiltCircuitCard({
 }: TiltCircuitCardProps) {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      (window.matchMedia("(pointer: coarse)").matches ||
+        "ontouchstart" in window ||
+        window.innerWidth < 768)
+    ) {
+      setIsTouchDevice(true);
+    }
+  }, []);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -23,26 +35,24 @@ export default function TiltCircuitCard({
   const mouseXSpring = useSpring(x, { stiffness: 250, damping: 25 });
   const mouseYSpring = useSpring(y, { stiffness: 250, damping: 25 });
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["6deg", "-6deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-6deg", "6deg"]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (isTouchDevice || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
 
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
+    const xPct = mouseX / rect.width - 0.5;
+    const yPct = mouseY / rect.height - 0.5;
 
     x.set(xPct);
     y.set(yPct);
   };
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
+    if (!isTouchDevice) setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
@@ -57,12 +67,16 @@ export default function TiltCircuitCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
-      className={`relative rounded-xl p-[1px] transition-shadow duration-500 will-change-transform ${
+      style={
+        isTouchDevice
+          ? undefined
+          : {
+              rotateX,
+              rotateY,
+              transformStyle: isHovered ? "preserve-3d" : "flat",
+            }
+      }
+      className={`relative rounded-xl p-[1px] transition-shadow duration-300 ${
         isHovered
           ? "shadow-[0_15px_35px_rgba(0,0,0,0.6),0_0_25px_rgba(6,182,212,0.25)]"
           : "shadow-lg"
@@ -70,7 +84,7 @@ export default function TiltCircuitCard({
     >
       {/* Animated Circuit Trace Border Beam */}
       <div
-        className={`absolute inset-0 rounded-xl transition-opacity duration-500 pointer-events-none ${
+        className={`absolute inset-0 rounded-xl transition-opacity duration-300 pointer-events-none ${
           isHovered ? "opacity-100" : "opacity-0"
         }`}
         style={{
@@ -88,8 +102,8 @@ export default function TiltCircuitCard({
 
       {/* Inner Card Content */}
       <div
-        style={{ transform: "translateZ(10px)" }}
-        className="relative h-full w-full rounded-xl bg-portfolio-substrate/90 backdrop-blur-xl p-6 sm:p-7 flex flex-col justify-between overflow-hidden"
+        style={!isTouchDevice && isHovered ? { transform: "translateZ(8px)" } : undefined}
+        className="relative h-full w-full rounded-xl bg-[#070d22]/95 p-6 sm:p-7 flex flex-col justify-between overflow-hidden"
       >
         {/* Hardware IC Pinout Accents */}
         <div className="absolute top-2 left-3 flex items-center gap-1.5 opacity-60">

@@ -20,9 +20,12 @@ export default function SiliconCursor() {
   const ringY = useSpring(mouseY, { damping: 18, stiffness: 180 });
 
   useEffect(() => {
-    // Disable on touch / mobile devices
+    // Disable completely on touch / mobile devices
     if (typeof window !== "undefined") {
-      const touchCheck = window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window;
+      const touchCheck =
+        window.matchMedia("(pointer: coarse)").matches ||
+        "ontouchstart" in window ||
+        window.innerWidth < 768;
       setIsTouchDevice(touchCheck);
       if (touchCheck) return;
     }
@@ -33,20 +36,32 @@ export default function SiliconCursor() {
       if (!isVisible) setIsVisible(true);
     };
 
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      const interactiveEl = target.closest(
+        "a, button, input, textarea, select, [role='button'], .cursor-pointer, .interactive-node"
+      );
+      if (interactiveEl) {
+        setIsHovered(true);
+      }
+    };
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const related = e.relatedTarget as HTMLElement | null;
+      if (!related || !related.closest("a, button, input, textarea, select, [role='button'], .cursor-pointer, .interactive-node")) {
+        setIsHovered(false);
+      }
+    };
+
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
     const handleMouseDown = () => setIsClicking(true);
     const handleMouseUp = () => setIsClicking(false);
 
-    const handleElementHover = (e: MouseEvent) => {
-      const target = e.target as HTMLElement | null;
-      if (!target) return;
-      const interactiveEl = target.closest("a, button, input, textarea, select, [role='button'], .cursor-pointer, .interactive-node");
-      setIsHovered(!!interactiveEl);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mousemove", handleElementHover);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.addEventListener("mouseover", handleMouseOver, { passive: true });
+    document.addEventListener("mouseout", handleMouseOut, { passive: true });
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
     window.addEventListener("mousedown", handleMouseDown);
@@ -54,7 +69,8 @@ export default function SiliconCursor() {
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mousemove", handleElementHover);
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
       window.removeEventListener("mousedown", handleMouseDown);
