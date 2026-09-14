@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, FileText } from "lucide-react";
+import { ExternalLink, FileText, Globe } from "lucide-react";
 import { Github } from "@/components/icons";
 import CircuitSectionHeader from "@/components/CircuitSectionHeader";
 import TiltCircuitCard from "@/components/TiltCircuitCard";
@@ -18,6 +18,7 @@ interface ProjectItem {
   github: string;
   pinLabel: string;
   reports?: ReportLink[];
+  liveDemo?: string;
 }
 
 const projects: ProjectItem[] = [
@@ -99,6 +100,34 @@ const projects: ProjectItem[] = [
       {
         label: "Project Report",
         url: "/reports/Bank_System_Project_Report.pdf",
+      },
+    ],
+  },
+  {
+    title: "EntropyX — Cryptographic Suite & Zero-Knowledge Vault",
+    pinLabel: "CRYPTO_CORE // ZERO_KNOWLEDGE",
+    description: [
+      "Dual-Engine Cryptographic Architecture: Engineered a high-throughput hybrid generator featuring a native C++14 microservice using OS-level hardware entropy (CryptGenRandom) with unbiased rejection sampling and Fisher-Yates shuffling (>400,000 ops/sec), with seamless automatic fallback to W3C Web Crypto API for zero-latency serverless edge deployment on Vercel.",
+      "Zero-Collision Global Deduplication: Designed a space-efficient 2,000,000-bit Bloom Filter (k = 7) backed by a persistent SHA-256 hash index, mathematically guaranteeing zero duplicate password issuance across all user sessions globally without storing plaintext credentials.",
+      "Zero-Knowledge Authenticated Vault: Implemented client-side credential management using PBKDF2 (100,000 iterations) key derivation and AES-256-GCM authenticated encryption with a volatile memory auto-lock model that instantly purges decrypted keys and credentials from RAM upon view switching.",
+    ],
+    stack: [
+      "C++14",
+      "React 19",
+      "Tailwind CSS",
+      "Web Crypto API",
+      "AES-256-GCM",
+      "PBKDF2",
+      "Bloom Filter",
+      "Vite",
+      "Vercel",
+    ],
+    github: "https://github.com/nigam-30/entropyx",
+    liveDemo: "https://entropyx-password-suite.vercel.app/",
+    reports: [
+      {
+        label: "Project Report",
+        url: "/reports/Entropyx_Project_Report.pdf",
       },
     ],
   },
@@ -242,9 +271,23 @@ export default function Projects() {
                         <span>VIEW REPOSITORY</span>
                       </a>
 
-                      {project.reports && project.reports.length > 0 && (
-                        <div className="flex flex-wrap items-center gap-2">
-                          {project.reports.map((report, rIdx) => (
+                      <div className="flex flex-wrap items-center gap-2">
+                        {project.liveDemo && (
+                          <a
+                            href={project.liveDemo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-portfolio-emerald/10 border border-portfolio-emerald/30 text-portfolio-emerald hover:bg-portfolio-emerald/20 hover:border-portfolio-emerald text-xs font-semibold transition-all duration-200"
+                            title="Live Demo"
+                          >
+                            <Globe className="h-3.5 w-3.5 text-portfolio-emerald" />
+                            <span>LIVE DEMO</span>
+                            <ExternalLink className="h-3 w-3 opacity-70" />
+                          </a>
+                        )}
+
+                        {project.reports && project.reports.length > 0 &&
+                          project.reports.map((report, rIdx) => (
                             <a
                               key={rIdx}
                               href={encodeURI(report.url)}
@@ -258,8 +301,7 @@ export default function Projects() {
                               <ExternalLink className="h-3 w-3 opacity-70" />
                             </a>
                           ))}
-                        </div>
-                      )}
+                      </div>
                     </div>
                   </div>
                 </div>
