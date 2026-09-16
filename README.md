@@ -1,6 +1,6 @@
 # Electronics Engineering [VLSI Design And Technology] Undergrad Student Portfolio
 
-A modern, high-performance, responsive portfolio website engineered for **Nigam Mehta**, specializing in **VLSI Design & Technology, RTL Engineering, ASIC Verification, and Edge AI Hardware**.
+A modern, high-performance, responsive portfolio website engineered for **Nigam Mehta**, Engineering chips at the intersection of hardware and AI — B.Tech VLSI Design student exploring how data and embedded intelligence shape next-gen semiconductor.
 
 Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**, styled with an **EUV Lithography & Cobalt EDA** semiconductor dark aesthetic.
 
