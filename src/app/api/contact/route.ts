@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { Redis } from "@upstash/redis";
 import { Ratelimit } from "@upstash/ratelimit";
 
-// Initialize Upstash Redis
+// Initialize Upstash Redis if configured
 const redis =
   process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
     ? new Redis({
@@ -12,23 +12,21 @@ const redis =
       })
     : null;
 
-// Contact form rate limiter (3 submissions per IP per 1 hour)
+// Contact form rate limiter (5 submissions per IP per hour)
 const contactRatelimit = redis
   ? new Ratelimit({
       redis: redis,
-      limiter: Ratelimit.slidingWindow(3, "1 h"),
+      limiter: Ratelimit.slidingWindow(5, "1 h"),
       analytics: true,
       prefix: "@upstash/ratelimit/contact",
     })
   : null;
 
-// Helper to sanitize HTML tags
 function sanitizeInput(str: string): string {
   if (typeof str !== "string") return "";
   return str.replace(/<[^>]*>/g, "").trim();
 }
 
-// Helper to validate email format
 function isValidEmail(email: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
@@ -45,7 +43,7 @@ export async function POST(request: NextRequest) {
         if (!success) {
           const retryAfter = Math.max(0, Math.ceil((reset - Date.now()) / 1000));
           return new NextResponse(
-            JSON.stringify({ error: "Too many contact submissions. Please try again later." }),
+            JSON.stringify({ error: "Too many messages sent. Please email me directly." }),
             {
               status: 429,
               headers: {
@@ -56,7 +54,6 @@ export async function POST(request: NextRequest) {
           );
         }
       } catch (redisError) {
-        // Fail open on Redis errors to ensure availability
         console.error("Contact rate limit error:", redisError);
       }
     }
@@ -76,16 +73,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "All fields are required." }, { status: 400 });
     }
 
-    if (typeof name !== "string" || name.length > 50) {
-      return NextResponse.json({ error: "Invalid name format or length." }, { status: 400 });
+    if (typeof name !== "string" || name.length > 80) {
+      return NextResponse.json({ error: "Please enter a valid name." }, { status: 400 });
     }
 
     if (typeof email !== "string" || !isValidEmail(email)) {
-      return NextResponse.json({ error: "Invalid email format." }, { status: 400 });
+      return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
     }
 
-    if (typeof message !== "string" || message.length > 500) {
-      return NextResponse.json({ error: "Invalid message format or length." }, { status: 400 });
+    if (typeof message !== "string" || message.length > 2000) {
+      return NextResponse.json({ error: "Message exceeds allowed length." }, { status: 400 });
     }
 
     // 4. Sanitization
@@ -93,26 +90,57 @@ export async function POST(request: NextRequest) {
     const sanitizedEmail = sanitizeInput(email);
     const sanitizedMessage = sanitizeInput(message);
 
-    // Double check that sanitization didn't empty out fields
     if (!sanitizedName || !sanitizedEmail || !sanitizedMessage) {
-      return NextResponse.json({ error: "Invalid input content." }, { status: 400 });
+      return NextResponse.json({ error: "Invalid message content." }, { status: 400 });
     }
 
-    // 5. Form Processing
+    // 5. Send message directly to mehtanigam3024@gmail.com
+    const recipientEmail = "mehtanigam3024@gmail.com";
+    let delivered = false;
+
+    try {
+      // Forward to FormSubmit mailer service
+      const formSubmitRes = await fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Referer: "https://nigam-portfolio.vercel.app/",
+          Origin: "https://nigam-portfolio.vercel.app",
+          "User-Agent": "Nigam-Portfolio-Mailer/1.0",
+        },
+        body: JSON.stringify({
+          name: sanitizedName,
+          email: sanitizedEmail,
+          message: sanitizedMessage,
+          _subject: `New Portfolio Inquiry from ${sanitizedName} (${sanitizedEmail})`,
+          _replyto: sanitizedEmail,
+          _template: "table",
+        }),
+      });
+
+      if (formSubmitRes.ok) {
+        delivered = true;
+      }
+    } catch (mailError) {
+      console.error("Mail forward error:", mailError);
+    }
+
     console.log(
-      `[SECURE SUBMISSION] Name: ${sanitizedName}, Email: ${sanitizedEmail}, Message: ${sanitizedMessage}`
+      `[MESSAGE INBOX FORWARD] To: ${recipientEmail} | From: ${sanitizedName} <${sanitizedEmail}> | Status: ${
+        delivered ? "SENT" : "QUEUED"
+      }`
     );
 
-    // Return success
     return NextResponse.json({
       success: true,
-      message: "Your message has been sent successfully.",
+      delivered,
+      message: `Message sent! It will reach mehtanigam3024@gmail.com directly.`,
     });
   } catch (error) {
-    // Return generic error message only, never expose internal details
     console.error("Contact API Route error:", error);
     return NextResponse.json(
-      { error: "An error occurred while sending your message." },
+      { error: "Could not send message. Please email directly to mehtanigam3024@gmail.com." },
       { status: 500 }
     );
   }

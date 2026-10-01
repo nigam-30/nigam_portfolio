@@ -44,7 +44,7 @@ const metrics: MetricItem[] = [
   },
   {
     value: "52",
-    label: "DEMU Core LUTs",
+    label: "Monitor Core LUTs",
     detail: "Post-synthesis SoC IP size",
   },
 ];

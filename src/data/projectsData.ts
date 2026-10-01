@@ -42,10 +42,9 @@ export const projectsData: Project[] = [
   {
     id: "design-of-a-modular-digital-data-monitoring-unit",
     title: "Design of a Modular Digital Data Monitoring Unit",
-    secondaryLabel: "DEMU",
     category: "HARDWARE / VLSI",
     shortDescription:
-      "An 8-bit digital monitoring IP in synthesizable Verilog that evolves from a standalone hardware monitor into a memory-mapped AMBA APB4 slave peripheral. Implements a 3-state Moore FSM (IDLE, ALARM, COOLDOWN), configurable threshold detection with signed/unsigned comparison modes, a sticky alarm, and a fault-value capture register. Supported by a Python-driven AutoArchitect flow for automated Yosys synthesis and NetlistSVG gate-level visualization.",
+      "A synthesizable 8-bit digital monitoring IP in Verilog HDL engineered for real-time sensor anomaly detection without CPU polling overhead. Features a 3-state Moore FSM (IDLE, ALARM, COOLDOWN), configurable signed/unsigned threshold comparators, sticky alarm assertion, and a fault-value capture register. Integrated with an AMBA APB4 memory-mapped slave interface for microprocessor control and verified on Xilinx Spartan-7 FPGA at 100 MHz (+6.720 ns WNS) alongside a Python/Yosys synthesis pipeline.",
     stack: [
       "Verilog HDL",
       "AMBA APB4",
@@ -66,9 +65,9 @@ export const projectsData: Project[] = [
       { label: "Target FPGA", value: "Xilinx Spartan-7" },
     ],
     overview:
-      "The Digital Event Monitoring Unit (DEMU) is a modular RTL-based hardware monitoring IP designed to continuously monitor 8-bit sensor data and detect threshold violations in real time. Rather than relying on CPU software polling which risks missing transient microsecond spikes, DEMU provides continuous hardware-level event tracking, programmable threshold comparison, sticky alarm behavior, and immediate software acknowledgement.",
+      "The Digital Data Monitoring Unit is a modular RTL-based hardware monitoring IP designed to continuously monitor 8-bit sensor data and detect threshold violations in real time. Rather than relying on CPU software polling which risks missing transient microsecond spikes, the hardware IP provides continuous hardware-level event tracking, programmable threshold comparison, sticky alarm behavior, and immediate software acknowledgement.",
     problem:
-      "Software polling in embedded systems can overlook rapid transient spikes when the CPU is servicing higher-priority interrupts or running heavy loops. Traditional alarms also lack diagnostics, as alerting that an anomaly occurred does not preserve the exact sensor value responsible. DEMU addresses this by locking the offending reading into a dedicated fault capture register and asserting an immediate hardware-level alarm.",
+      "Software polling in embedded systems can overlook rapid transient spikes when the CPU is servicing higher-priority interrupts or running heavy loops. Traditional alarms also lack diagnostics, as alerting that an anomaly occurred does not preserve the exact sensor value responsible. This IP addresses this by locking the offending reading into a dedicated fault capture register and asserting an immediate hardware-level alarm.",
     architecture:
       "Phase 1 established an 8-bit RTL core driven by a 3-state Moore Finite State Machine (IDLE, ALARM, COOLDOWN) featuring dual-mode (signed/unsigned) magnitude comparators, a sticky alarm register, and a fault-value latch. Phase 2 wrapped the core into an AMBA APB4 slave interface with 5 memory-mapped registers (0x00 CONTROL, 0x04 SENSOR_DATA, 0x08 THRESHOLD, 0x0C STATUS/ALARM, 0x10 FAULT_CAPTURE) allowing microprocessor configuration and software acknowledgement.",
     implementation:

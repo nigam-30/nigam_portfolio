@@ -34,10 +34,14 @@ export default function Projects() {
               <span className="text-portfolio-accent font-semibold tracking-wider uppercase">
                 {featuredProject.category}
               </span>
-              <span className="text-portfolio-border">•</span>
-              <span className="px-2 py-0.5 rounded bg-portfolio-subtle text-portfolio-text font-medium border border-portfolio-border">
-                {featuredProject.secondaryLabel}
-              </span>
+              {featuredProject.secondaryLabel && (
+                <>
+                  <span className="text-portfolio-border">•</span>
+                  <span className="px-2 py-0.5 rounded bg-portfolio-subtle text-portfolio-text font-medium border border-portfolio-border">
+                    {featuredProject.secondaryLabel}
+                  </span>
+                </>
+              )}
             </div>
             <span className="text-portfolio-textMuted text-[11px]">
               FEATURED HARDWARE IP
