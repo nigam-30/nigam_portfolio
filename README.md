@@ -28,7 +28,7 @@ Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **
 | Project | Substrate Domain | Tech Stack | Repository & Demo | Documentation & Reports |
 | :--- | :--- | :--- | :--- | :--- |
 | **8-bit Pipelined Processor** | `CPU_CORE // RISC_PIPELINE` | Verilog HDL, RTL Design, Vivado, XSim, FPGA Synthesis | [🔗 GitHub Repo](https://github.com/nigam-30/pipelined_processor) | [📄 Pipelined Processor Report (PDF)](public/reports/Pipelined_Processor_Project_Report.pdf) |
-| **Data Monitoring Unit (DEMU)** | `RTL_DEMU // ASIC_IP` | Verilog, AMBA APB4, Moore FSM, Python, Yosys | [🔗 GitHub Repo](https://github.com/nigam-30/Design-of-a-Modular-Digital-Data-Monitoring-Unit) | [📄 Phase 1 Report (PDF)](public/reports/Data%20Monitoring%20Unit%20Phase%201%20Report.pdf)<br>[📄 Phase 2 Report (PDF)](public/reports/Data%20Monitoring%20Unit%20Phase%202%20Report.pdf) |
+| **Digital Data Monitoring Unit (DEMU)** | `RTL_DEMU // ASIC_IP` | Verilog, AMBA APB4, Moore FSM, Python, Yosys | [🔗 GitHub Repo](https://github.com/nigam-30/Design-of-a-Modular-Digital-Data-Monitoring-Unit) | [📄 Phase 1 Report (PDF)](public/reports/Digital_data_monitor_Phase_1_report.pdf)<br>[📄 Phase 2 Report (PDF)](public/reports/Digital_data_monitor_Phase_2_Report.pdf) |
 | **Bank Management System** | `SYS_CORE // C++_ENGINE` | C++, Python Flask, REST API, File I/O, Data Structures | [🔗 GitHub Repo](https://github.com/nigam-30/Bank-Management-System) | [📄 Bank System Report (PDF)](public/reports/Bank_System_Project_Report.pdf) |
 | **EntropyX — Cryptographic Suite & Vault** | `CRYPTO_CORE // ZERO_KNOWLEDGE` | C++14, React 19, Tailwind CSS, Web Crypto API, AES-256-GCM, PBKDF2, Bloom Filter | [🔗 GitHub Repo](https://github.com/nigam-30/entropyx)<br>[🌐 Live Demo](https://entropyx-password-suite.vercel.app/) | [📄 EntropyX Report (PDF)](public/reports/Entropyx_Project_Report.pdf) |
 | **Rail Nova** | `FASTAPI // DISTRIBUTED` | FastAPI, Python, SQLite, SQLAlchemy, WebSockets, JWT | [🔗 GitHub Repo](https://github.com/nigam-30/Rail-Nova) | [📄 Rail Nova Report (PDF)](public/reports/Rail_Nova_Project_Report.pdf) |
@@ -43,8 +43,8 @@ Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **
 │   ├── certificates/             # Internship & course certification documents (PDFs & images)
 │   ├── reports/                  # Project reports & technical documentation PDFs
 │   │   ├── Bank_System_Project_Report.pdf
-│   │   ├── Data Monitoring Unit Phase 1 Report.pdf
-│   │   ├── Data Monitoring Unit Phase 2 Report.pdf
+│   │   ├── Digital_data_monitor_Phase_1_report.pdf
+│   │   ├── Digital_data_monitor_Phase_2_Report.pdf
 │   │   ├── Entropyx_Project_Report.pdf
 │   │   ├── Pipelined_Processor_Project_Report.pdf
 │   │   ├── Rail_Nova_Project_Report.pdf

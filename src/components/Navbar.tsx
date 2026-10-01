@@ -1,32 +1,44 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, Cpu } from "lucide-react";
+import { Menu, X, ArrowDown, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 
 const navLinks = [
   { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
+  { name: "Work", href: "#work" },
   { name: "Skills", href: "#skills" },
-  { name: "Certifications", href: "#certifications" },
+  { name: "Experience", href: "#experience" },
   { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("about");
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      setScrolled(window.scrollY > 30);
+
+      // Determine active section based on scroll position
+      const sections = ["contact", "experience", "skills", "work", "about"];
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 200) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -34,67 +46,136 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-portfolio-bg/85 border-b border-portfolio-primary/10 backdrop-blur-md py-3 shadow-lg"
-          : "bg-transparent py-5"
+          ? "bg-portfolio-bg/90 backdrop-blur-md py-3.5 border-b border-portfolio-border shadow-subtle"
+          : "bg-transparent py-6"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo / Brand Name */}
-          <a href="#" className="flex items-center space-x-2 text-portfolio-text group">
-            <Cpu className="h-6 w-6 text-portfolio-primary group-hover:text-portfolio-primaryHover transition-colors duration-200" />
-            <span className="font-bold text-xl tracking-wider font-mono">
-              NM<span className="text-portfolio-primary">.</span>
-            </span>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          {/* Logo / Brand Name: Minimal NM with electric dot */}
+          <a
+            href="#"
+            className="flex items-center gap-1.5 text-portfolio-text hover:text-portfolio-accent transition-colors duration-200 group"
+            aria-label="Nigam Mehta - Home"
+          >
+            <span className="font-mono font-bold text-xl tracking-tight">NM</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-portfolio-accent transition-transform duration-200 group-hover:scale-125" />
           </a>
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-portfolio-textSecondary hover:text-portfolio-primaryHover text-sm font-medium transition-colors duration-200"
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.substring(1);
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={`text-sm tracking-wide transition-colors duration-200 relative py-1 ${
+                    isActive
+                      ? "text-portfolio-accent font-medium"
+                      : "text-portfolio-textSecondary hover:text-portfolio-text"
+                  }`}
+                >
+                  {link.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNavIndicator"
+                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-portfolio-accent rounded-full"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </a>
+              );
+            })}
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          {/* Right Action: Theme Toggle & Resume Link */}
+          <div className="hidden md:flex items-center space-x-4">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg text-portfolio-textSecondary hover:text-portfolio-text hover:bg-portfolio-subtle transition-all duration-200 border border-transparent hover:border-portfolio-border"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <Sun className="h-4 w-4 text-portfolio-textSecondary hover:text-amber-400 transition-colors" />
+              ) : (
+                <Moon className="h-4 w-4 text-portfolio-textSecondary hover:text-portfolio-accent transition-colors" />
+              )}
+            </button>
+
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-portfolio-border hover:border-portfolio-accent text-xs font-mono font-medium text-portfolio-text hover:text-portfolio-accent bg-portfolio-card/50 hover:bg-portfolio-card transition-all duration-200 shadow-sm"
+            >
+              <span>Resume</span>
+              <ArrowDown className="h-3 w-3" />
+            </a>
+          </div>
+
+          {/* Mobile Actions & Menu Button */}
+          <div className="flex md:hidden items-center space-x-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg text-portfolio-textSecondary hover:text-portfolio-text"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-portfolio-text hover:text-portfolio-primary transition-colors duration-200 p-2 rounded-md focus:outline-none"
-              aria-label="Toggle menu"
+              className="text-portfolio-text hover:text-portfolio-accent transition-colors duration-200 p-2 rounded-md"
+              aria-label="Toggle mobile menu"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Nav Links Overlay */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-portfolio-card/95 border-b border-portfolio-primary/10 backdrop-blur-lg overflow-hidden"
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="md:hidden bg-portfolio-bg/95 backdrop-blur-xl border-b border-portfolio-border overflow-hidden"
           >
-            <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
-              {navLinks.map((link) => (
+            <div className="px-4 pt-3 pb-6 space-y-2">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.substring(1);
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`block px-3 py-2.5 rounded-lg text-base tracking-wide transition-colors ${
+                      isActive
+                        ? "text-portfolio-accent bg-portfolio-subtle font-medium"
+                        : "text-portfolio-textSecondary hover:text-portfolio-text hover:bg-portfolio-subtle/50"
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                );
+              })}
+
+              <div className="pt-3 border-t border-portfolio-border">
                 <a
-                  key={link.name}
-                  href={link.href}
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsOpen(false)}
-                  className="block px-3 py-2.5 rounded-md text-base font-medium text-portfolio-textSecondary hover:text-portfolio-primaryHover hover:bg-portfolio-bg/50 transition-all duration-200"
+                  className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg bg-portfolio-card border border-portfolio-border text-portfolio-text text-sm font-mono font-medium hover:border-portfolio-accent"
                 >
-                  {link.name}
+                  <span>Resume</span>
+                  <ArrowDown className="h-4 w-4" />
                 </a>
-              ))}
+              </div>
             </div>
           </motion.div>
         )}

@@ -1,180 +1,126 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Cpu, Brain, Database, Code, ShieldCheck, Zap, Activity } from "lucide-react";
-import CircuitSectionHeader from "@/components/CircuitSectionHeader";
+import { Cpu, Terminal, Layers } from "lucide-react";
 
-interface SkillGroup {
-  id: string;
-  category: string;
-  icCode: string;
-  icon: React.ReactNode;
-  color: string;
-  skills: string[];
+interface SkillCategory {
+  title: string;
+  subtitle: string;
+  icon: typeof Cpu;
+  skills: { name: string; note?: string }[];
 }
 
+const categories: SkillCategory[] = [
+  {
+    title: "HARDWARE",
+    subtitle: "RTL Implementation & Silicon Architecture",
+    icon: Cpu,
+    skills: [
+      { name: "Verilog HDL", note: "RTL modeling, FSMs & datapath synthesis" },
+      { name: "SystemVerilog", note: "Verification constructs & testbenches" },
+      { name: "RTL Design", note: "Synchronous logic, pipelining, hazard logic" },
+      { name: "FPGA Prototyping", note: "Xilinx Spartan-7 implementation" },
+      { name: "ASIC Methodologies", note: "Logic synthesis & timing constraints" },
+      { name: "Digital Logic Design", note: "Combinational/sequential analysis" },
+      { name: "CMOS Technology", note: "Semiconductor device physics & sizing" },
+    ],
+  },
+  {
+    title: "EDA & WORKFLOWS",
+    subtitle: "Electronic Design Automation & Verification",
+    icon: Layers,
+    skills: [
+      { name: "Xilinx Vivado", note: "Elaboration, synthesis, implementation" },
+      { name: "Vivado XSim", note: "Cycle-accurate behavioral verification" },
+      { name: "Yosys Open Synthesis", note: "Scripted gate-level synthesis" },
+      { name: "Cadence EDA Tools", note: "VLSI academic & virtual flow training" },
+      { name: "NetlistSVG", note: "Automated schematic generation" },
+      { name: "Static Timing Analysis", note: "WNS/TNS constraint validation" },
+      { name: "AMBA APB4 Protocol", note: "Memory-mapped slave integration" },
+    ],
+  },
+  {
+    title: "SOFTWARE & COMPUTE",
+    subtitle: "Systems Programming & Analytical Pipelines",
+    icon: Terminal,
+    skills: [
+      { name: "Python", note: "EDA automation scripts, NumPy, Pandas" },
+      { name: "C / C++ (C++14)", note: "Low-level systems, STL data structures" },
+      { name: "Linux & Bash", note: "CLI automation, toolchain orchestration" },
+      { name: "SQL", note: "Relational data extraction & segmentation" },
+      { name: "Git & GitHub", note: "Version control & open-source workflows" },
+      { name: "Data Analytics & ML", note: "Scikit-learn, SMOTE, SHAP, Power BI" },
+      { name: "Embedded C", note: "Microchip PIC16, MPLAB X, BLE, IoT" },
+    ],
+  },
+];
+
 export default function Skills() {
-  const [activeNode, setActiveNode] = useState<string | null>(null);
-
-  const skillGroups: SkillGroup[] = [
-    {
-      id: "vlsi",
-      category: "VLSI / Hardware",
-      icCode: "IC-01 // RTL_CORE",
-      icon: <Cpu className="h-5 w-5 text-[#06B6D4]" />,
-      color: "#06B6D4",
-      skills: [
-        "Verilog",
-        "RTL Design",
-        "Digital Logic Design",
-        "FSM",
-        "ASIC Verification",
-        "Semiconductor Technology",
-        "Hardware Design",
-      ],
-    },
-    {
-      id: "ai",
-      category: "AI / ML",
-      icCode: "IC-02 // NPU_ACCELERATOR",
-      icon: <Brain className="h-5 w-5 text-[#8B5CF6]" />,
-      color: "#8B5CF6",
-      skills: [
-        "Python",
-        "Scikit-learn",
-        "SHAP",
-        "SMOTE",
-        "Machine Learning",
-        "Artificial Intelligence",
-      ],
-    },
-    {
-      id: "data",
-      category: "Data Analytics",
-      icCode: "IC-03 // DPU_PIPELINE",
-      icon: <Database className="h-5 w-5 text-[#10B981]" />,
-      color: "#10B981",
-      skills: ["SQL", "Power BI", "Data Analysis", "Pandas", "NumPy"],
-    },
-    {
-      id: "software",
-      category: "Software & Embedded",
-      icCode: "IC-04 // MCU_CONTROLLER",
-      icon: <Code className="h-5 w-5 text-[#F59E0B]" />,
-      color: "#F59E0B",
-      skills: ["C++", "Flask", "FastAPI", "Android Development", "Git", "GitHub"],
-    },
-    {
-      id: "security",
-      category: "Cybersecurity",
-      icCode: "IC-05 // CRYPTO_ENGINE",
-      icon: <ShieldCheck className="h-5 w-5 text-[#EC4899]" />,
-      color: "#EC4899",
-      skills: ["Cybersecurity Fundamentals", "Network Security"],
-    },
-  ];
-
   return (
-    <section id="skills" className="py-24 bg-portfolio-bg px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Wafer Micro-Grid Background Layer */}
-      <div className="absolute inset-0 wafer-grid pointer-events-none opacity-30" />
-
-      <div className="max-w-6xl mx-auto space-y-12 relative z-10">
+    <section id="skills" className="py-28 px-4 sm:px-6 lg:px-8 relative border-t border-portfolio-border">
+      <div className="max-w-6xl mx-auto space-y-16">
         {/* Section Heading */}
-        <CircuitSectionHeader
-          moduleNumber="02 // CHIPSET_BUS"
-          title="Technical Skills"
-          subtitle="My core engineering competencies and software tooling knowledge, structured as an integrated circuit hierarchy."
-          badge="BUS_SYNCED"
-        />
-
-        {/* Central Interconnect Bus Display */}
-        <div className="hidden lg:flex items-center justify-between px-6 py-3 rounded-xl bg-[#090d1c]/90 border border-portfolio-primary/30 shadow-[0_0_20px_rgba(139,92,246,0.15)] font-mono text-xs text-portfolio-textSecondary">
-          <div className="flex items-center gap-2">
-            <Activity className="h-4 w-4 text-[#06B6D4] animate-pulse" />
-            <span className="text-[#38BDF8] font-bold">SYSTEM BUS: AMBA APB4 / HIGH-SPEED INTERCONNECT</span>
-          </div>
-          <div className="flex items-center gap-4 text-[11px]">
-            <span>BANDWIDTH: 128-BIT</span>
-            <span className="text-[#8B5CF6]">•</span>
-            <span className="text-emerald-400">NODES ACTIVE: 5/5</span>
-            <span className="text-[#8B5CF6]">•</span>
-            <span>CLOCK: 100MHz</span>
+        <div className="space-y-2">
+          <p className="text-xs font-mono font-medium tracking-widest text-portfolio-accent uppercase">
+            03 — ENGINEERING STACK
+          </p>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-portfolio-text">
+              Core competencies across silicon, tools &amp; software.
+            </h2>
+            <p className="text-xs font-mono text-portfolio-textSecondary">
+              Categorized Engineering Capabilities
+            </p>
           </div>
         </div>
 
-        {/* Circuit Nodes Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillGroups.map((group, idx) => {
-            const isHovered = activeNode === group.id;
-
+        {/* 3-Column Editorial Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {categories.map((category, idx) => {
+            const Icon = category.icon;
             return (
-              <motion.div
-                key={group.id}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                onMouseEnter={() => setActiveNode(group.id)}
-                onMouseLeave={() => setActiveNode(null)}
-                className={`relative rounded-2xl bg-portfolio-card border transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden group interactive-node ${
-                  isHovered
-                    ? "border-[#06B6D4]/60 shadow-[0_10px_35px_rgba(0,0,0,0.6),0_0_25px_rgba(6,182,212,0.25)] -translate-y-1"
-                    : "border-portfolio-primary/25 hover:border-portfolio-primary/50"
-                }`}
+              <div
+                key={idx}
+                className="rounded-2xl bg-portfolio-card border border-portfolio-border hover:border-portfolio-accent/40 transition-all duration-300 p-7 flex flex-col justify-between shadow-card space-y-6 group"
               >
-                {/* Circuit Node Background Trace lines */}
-                <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity">
-                  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M100 0 L50 0 L30 20 L30 60 L0 60" stroke={group.color} strokeWidth="2" />
-                    <circle cx="50" cy="0" r="3" fill={group.color} />
-                    <circle cx="0" cy="60" r="3" fill={group.color} />
-                  </svg>
-                </div>
-
-                <div>
-                  {/* IC Header Bar */}
-                  <div className="flex items-center justify-between pb-3 mb-4 border-b border-portfolio-primary/15 font-mono">
-                    <div className="flex items-center gap-2">
-                      <div className="p-2 rounded-lg bg-portfolio-substrate border border-portfolio-primary/25 shadow-inner">
-                        {group.icon}
-                      </div>
-                      <div>
-                        <span className="text-[10px] text-[#38BDF8] tracking-wider block font-bold">
-                          {group.icCode}
-                        </span>
-                        <h3 className="text-base font-bold text-portfolio-text font-sans">
-                          {group.category}
-                        </h3>
-                      </div>
+                <div className="space-y-5">
+                  {/* Category Header */}
+                  <div className="space-y-2 pb-4 border-b border-portfolio-border">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-sm font-mono font-bold tracking-widest text-portfolio-accent uppercase">
+                        {category.title}
+                      </h3>
+                      <Icon className="h-4 w-4 text-portfolio-textSecondary group-hover:text-portfolio-accent transition-colors" />
                     </div>
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#10B981] animate-pulse" />
+                    <p className="text-xs text-portfolio-textSecondary font-sans">
+                      {category.subtitle}
+                    </p>
                   </div>
 
-                  {/* Interconnected Pinout Chips */}
-                  <div className="flex flex-wrap gap-2 pt-1">
-                    {group.skills.map((skill, skillIdx) => (
-                      <span
-                        key={skillIdx}
-                        className="px-2.5 py-1 rounded-md bg-[#070b16]/85 border border-portfolio-primary/20 text-xs font-mono text-portfolio-text hover:text-portfolio-cyan hover:border-portfolio-cyan hover:scale-105 transition-all duration-150 flex items-center gap-1.5 cursor-default shadow-sm"
+                  {/* Skills List */}
+                  <div className="space-y-3.5">
+                    {category.skills.map((skill, sIdx) => (
+                      <div
+                        key={sIdx}
+                        className="p-2.5 rounded-lg bg-portfolio-subtle/60 border border-portfolio-border/60 hover:border-portfolio-accent/30 transition-colors"
                       >
-                        <span className="w-1 h-1 rounded-full bg-portfolio-primary/70" />
-                        <span>{skill}</span>
-                      </span>
+                        <div className="text-sm font-semibold text-portfolio-text">
+                          {skill.name}
+                        </div>
+                        {skill.note && (
+                          <div className="text-xs text-portfolio-textSecondary font-mono mt-0.5">
+                            {skill.note}
+                          </div>
+                        )}
+                      </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Card Pinout Footer */}
-                <div className="mt-5 pt-3 border-t border-portfolio-primary/10 flex items-center justify-between text-[10px] font-mono text-portfolio-textSecondary">
-                  <span className="flex items-center gap-1">
-                    <Zap className="h-3 w-3 text-[#06B6D4]" />
-                    <span>PINS: {group.skills.length * 8}</span>
-                  </span>
-                  <span className="text-emerald-400">LOGIC: HIGH</span>
+                <div className="pt-3 border-t border-portfolio-border text-[11px] font-mono text-portfolio-textMuted flex items-center justify-between">
+                  <span>DISCIPLINE_0{idx + 1}</span>
+                  <span className="text-emerald-400">VERIFIED</span>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

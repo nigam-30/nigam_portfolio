@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["class"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,33 +10,37 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"],
+        sans: ["var(--font-sans)", "Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        mono: ["var(--font-mono)", "JetBrains Mono", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "var(--bg)",
+        foreground: "var(--text-primary)",
         portfolio: {
-          bg: "var(--portfolio-bg)",
-          card: "var(--portfolio-card)",
-          primary: "var(--portfolio-primary)",
-          primaryHover: "var(--portfolio-primary-hover)",
-          cyan: "#06B6D4",
-          cyanGlow: "rgba(6, 182, 212, 0.4)",
-          emerald: "#10B981",
-          copper: "#D97706",
-          substrate: "#070A12",
-          text: "var(--portfolio-text)",
-          textSecondary: "var(--portfolio-text-secondary)",
+          bg: "var(--bg)",
+          card: "var(--card-bg)",
+          cardHover: "var(--card-hover-bg)",
+          border: "var(--border)",
+          borderHover: "var(--border-hover)",
+          subtle: "var(--subtle-bg)",
+          text: "var(--text-primary)",
+          textSecondary: "var(--text-secondary)",
+          textMuted: "var(--text-muted)",
+          accent: "var(--accent)",
+          accentHover: "var(--accent-hover)",
+          accentSubtle: "var(--accent-subtle)",
+          accentBorder: "var(--accent-border)",
         },
       },
       boxShadow: {
-        glow: "0 0 15px rgba(139, 92, 246, 0.15)",
-        "glow-hover": "0 0 25px rgba(139, 92, 246, 0.25)",
-        "glow-cyan": "0 0 20px rgba(6, 182, 212, 0.3)",
-        "glow-chip": "0 0 35px rgba(139, 92, 246, 0.25), 0 0 15px rgba(6, 182, 212, 0.2)",
+        subtle: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+        card: "0 4px 20px -2px rgba(0, 0, 0, 0.25)",
+        "card-hover": "0 8px 30px -4px rgba(0, 0, 0, 0.35)",
+        "accent-subtle": "0 0 15px var(--accent-subtle)",
       },
     },
   },
   plugins: [],
 };
+
 export default config;

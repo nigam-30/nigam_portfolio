@@ -1,29 +1,67 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
-import dynamic from "next/dynamic";
+import { ThemeProvider } from "@/context/ThemeContext";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
 });
 
-const SiliconCursor = dynamic(() => import("@/components/SiliconCursor"), {
-  ssr: false,
-});
-
-const SiliconParticles = dynamic(() => import("@/components/SiliconParticles"), {
-  ssr: false,
-});
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#07090D" },
+    { media: "(prefers-color-scheme: light)", color: "#F7F8FA" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
-  title: "Nigam Mehta",
+  title: "Nigam Mehta — VLSI & Digital Hardware Engineer",
   description:
-    "Professional portfolio of Nigam Mehta, an Electronics Engineering student at SAKEC Mumbai specializing in VLSI Design, RTL Design, ASIC Verification, and AI Hardware.",
-  keywords:
-    "Nigam Mehta, VLSI Design, ASIC Verification, RTL Design, AI Hardware, Semiconductor Engineering, SAKEC, Verilog, Data Analytics",
-  authors: [{ name: "Nigam Mehta" }],
+    "Portfolio of Nigam Mehta: B.Tech in Electronics Engineering specializing in VLSI Design & Technology, RTL Implementation, FPGA Prototyping, ASIC Verification, and AI Hardware Architectures.",
+  keywords: [
+    "Nigam Mehta",
+    "VLSI Design",
+    "RTL Design",
+    "Digital Hardware",
+    "FPGA",
+    "ASIC Verification",
+    "AI Hardware",
+    "Verilog HDL",
+    "SystemVerilog",
+    "AMBA APB4",
+    "Xilinx Vivado",
+    "SAKEC Mumbai",
+  ],
+  authors: [{ name: "Nigam Mehta", url: "https://github.com/nigam-30" }],
+  creator: "Nigam Mehta",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://nigam-portfolio.vercel.app/",
+    title: "Nigam Mehta — VLSI & Digital Hardware Engineer",
+    description:
+      "Digital hardware design for intelligent systems. RTL Design · ASIC · FPGA · AI Hardware.",
+    siteName: "Nigam Mehta Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nigam Mehta — VLSI & Digital Hardware Engineer",
+    description:
+      "Digital hardware design for intelligent systems. RTL Design · ASIC · FPGA · AI Hardware.",
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -32,22 +70,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        {/* Custom Silicon Cursor */}
-        <SiliconCursor />
-
-        {/* Ambient Electron / Trace Particles */}
-        <SiliconParticles />
-
-        {/* Background Ambient Orbs */}
-        <div className="orb-container">
-          <div className="orb orb-purple"></div>
-          <div className="orb orb-cyan"></div>
-          <div className="orb orb-emerald"></div>
-        </div>
-
-        {children}
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-portfolio-bg text-portfolio-text min-h-screen selection:bg-portfolio-accent selection:text-black`}
+      >
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

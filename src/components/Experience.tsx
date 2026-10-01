@@ -1,18 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Calendar, MapPin, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
-import CircuitSectionHeader from "@/components/CircuitSectionHeader";
+import { Calendar, ExternalLink, ChevronDown, ChevronUp, FileText } from "lucide-react";
 
 interface ExperienceItem {
   company: string;
   role: string;
   period: string;
-  location?: string;
-  badge?: string;
+  year: string;
   certificate?: string;
-  details: string[];
+  stack: string[];
+  summary: string;
 }
 
 const experiences: ExperienceItem[] = [
@@ -20,215 +18,186 @@ const experiences: ExperienceItem[] = [
     company: "AICTE – EduSkills (in collaboration with Microchip)",
     role: "Microchip Embedded System Developer Intern",
     period: "Jun 2026 – Aug 2026",
-    location: "Remote",
+    year: "2026",
     certificate: "/certificates/Embedded System Developer Virtual Internship.pdf",
-    details: [
-      "Selected for the AICTE–EduSkills Internship Program under the Microchip Embedded Systems track.",
-      "Completed a structured 8-week curriculum covering PIC16 microcontroller architecture, MPLAB X IDE, embedded C programming (including callbacks, modular design, and linked lists), IoT design considerations, Bluetooth Low Energy (BLE) application development, Azure IoT sensor nodes with motor control, and real-time data visualization using MPLAB Data Visualizer.",
-      "Key Tools & Technologies: PIC16F1xxx MCUs, MPLAB X IDE, MCC, Embedded C, BLE, Azure IoT, MPLAB Data Visualizer.",
-    ],
+    stack: ["PIC16 MCUs", "MPLAB X IDE", "MCC", "Embedded C", "BLE", "Azure IoT", "Data Visualizer"],
+    summary:
+      "Engineered embedded firmwares covering PIC16 microcontroller architecture, modular C programming, Bluetooth Low Energy (BLE) applications, and Azure IoT sensor telemetry nodes.",
   },
   {
     company: "EduSkills Foundation",
-    role: "VLSI Design Semiconductor Engineering Intern",
+    role: "VLSI Design & Semiconductor Engineering Intern",
     period: "Apr 2026 – Jun 2026",
-    location: "Remote",
+    year: "2026",
     certificate: "/certificates/Certificate VLSI Design & Semiconductor Engineering Virtual Internship.pdf",
-    details: [
-      "Focused on Digital Integrated Circuit architectures, RTL design methodologies, and hardware description language validation.",
-      "Studied semiconductor fabrication processes, ASIC verification flows, and electronic design automation (EDA) tools.",
-    ],
+    stack: ["Digital IC", "RTL Design", "ASIC Flow", "EDA Tools", "Semiconductor Tech"],
+    summary:
+      "Trained on digital integrated circuit architectures, hardware description language validation, CMOS fabrication processes, and ASIC electronic design automation workflows.",
   },
   {
     company: "Elevate Labs",
     role: "Data Analyst Intern",
     period: "Feb 2026 – Mar 2026",
-    location: "Remote",
+    year: "2026",
     certificate: "/certificates/Elevate Labs Data Analyst Internship Certificate.pdf",
-    details: [
-      "Analyzed behavioral and engagement datasets, building dashboards to track vital KPIs.",
-      "Identified trends and anomaly patterns to support product optimization decisions.",
-    ],
+    stack: ["Data Analytics", "KPI Dashboards", "Pattern Detection", "SQL"],
+    summary:
+      "Analyzed user engagement datasets, evaluated critical operational metrics, and identified anomaly patterns to support product optimization decisions.",
   },
   {
     company: "EduSkills Foundation",
     role: "Data Analytics with Python & Power BI Intern",
     period: "Jan 2026 – Mar 2026",
-    location: "Remote",
+    year: "2026",
     certificate: "/certificates/Certificate Data Analysis Virtual Internship Eduskills.pdf",
-    details: [
-      "Built clean predictive frameworks using Python pandas/numpy arrays and regression models.",
-      "Engineered publication-quality interactive dashboards in Power BI to present business intelligence insights.",
-    ],
+    stack: ["Python", "Pandas", "Power BI", "Data Modeling", "Business Intelligence"],
+    summary:
+      "Engineered automated data preprocessing routines and deployed interactive Power BI reports to visualize business intelligence metrics.",
   },
   {
     company: "EduSkills Foundation",
     role: "Android Developer Intern",
     period: "Oct 2025 – Dec 2025",
-    location: "Remote",
+    year: "2025",
     certificate: "/certificates/Google Android Developer Virtual Internship Certificate.pdf",
-    details: [
-      "Created responsive android application views, integrating REST APIs and handling persistent database configurations.",
-      "Utilized Git version controls and optimized layout loading speeds.",
-    ],
+    stack: ["Android SDK", "REST APIs", "Mobile UI", "Git"],
+    summary:
+      "Constructed responsive Android application components, integrating REST API backends and persistent SQLite storage layers.",
   },
   {
     company: "EduSkills Foundation",
     role: "AI and Machine Learning Intern",
     period: "Jul 2025 – Sep 2025",
-    location: "Remote",
+    year: "2025",
     certificate: "/certificates/Google AI-ML Virtual Internship.pdf",
-    details: [
-      "Developed basic classifiers and regressors using Scikit-Learn libraries.",
-      "Implemented dataset pre-processing, handling missing columns and normalizing inputs.",
-    ],
+    stack: ["Python", "Scikit-Learn", "Data Preprocessing", "Classification"],
+    summary:
+      "Implemented standard supervised learning models, feature engineering pipelines, and classification benchmark evaluation.",
   },
   {
     company: "Edunet Foundation",
     role: "Artificial Intelligence and Machine Learning Intern",
     period: "Jun 2025 – Jul 2025",
-    location: "Remote",
+    year: "2025",
     certificate: "/certificates/Certificate Artificial Intelligence And Machine Learning Internship.pdf",
-    details: [
-      "Engaged in foundations of neural networks and standard ML algorithms.",
-      "Built hands-on predictive models solving pattern classification problems.",
-    ],
+    stack: ["Neural Networks", "ML Foundations", "Pattern Recognition"],
+    summary:
+      "Explored neural network architectures and solved practical pattern recognition problems using predictive models.",
   },
   {
     company: "Edunet Foundation",
     role: "Cyber Security Intern",
     period: "May 2025 – Jun 2025",
-    location: "Remote",
+    year: "2025",
     certificate: "/certificates/Certificate Cybersecurity Internship.pdf",
-    details: [
-      "Studied core network protocols, firewalls, and cryptographic basics.",
-      "Investigated network vulnerabilities and applied encryption techniques for securing communication channels.",
-    ],
+    stack: ["Network Protocols", "Cryptography", "Security Auditing"],
+    summary:
+      "Studied core network defense architectures, firewall mechanics, and basic cryptographic encryption standards.",
   },
   {
     company: "Edunet Foundation",
     role: "Foundations of AI Intern",
     period: "Apr 2025 – May 2025",
-    location: "Remote",
+    year: "2025",
     certificate: "/certificates/Certificate Foundations Of Artificial Intelligence Internship.pdf",
-    details: [
-      "Introduced to artificial intelligence fundamentals, search algorithms, and knowledge representation.",
-      "Explored prompt engineering, large language model configurations, and ethical AI practices.",
-    ],
+    stack: ["AI Concepts", "Search Algorithms", "Prompt Engineering"],
+    summary:
+      "Covered foundational AI search algorithms, knowledge representation paradigms, and prompt engineering methods.",
   },
 ];
 
 export default function Experience() {
   const [showAll, setShowAll] = useState(false);
-  const visibleExperiences = showAll ? experiences : experiences.slice(0, 3);
+  const displayed = showAll ? experiences : experiences.slice(0, 4);
 
   return (
-    <section id="experience" className="py-24 bg-portfolio-bg px-4 sm:px-6 lg:px-8 relative">
-      {/* Wafer Grid Layer */}
-      <div className="absolute inset-0 wafer-grid pointer-events-none opacity-25" />
-
-      <div className="max-w-4xl mx-auto space-y-12 relative z-10">
+    <section id="experience" className="py-28 px-4 sm:px-6 lg:px-8 relative border-t border-portfolio-border">
+      <div className="max-w-4xl mx-auto space-y-16">
         {/* Section Heading */}
-        <CircuitSectionHeader
-          moduleNumber="04 // INTERN_TELEMETRY"
-          title="Professional Experience"
-          subtitle="A timeline of my internships and practical engineering training across hardware, data, and software."
-          badge="LOG_SYNCED"
-        />
+        <div className="space-y-2">
+          <p className="text-xs font-mono font-medium tracking-widest text-portfolio-accent uppercase">
+            EXPERIENCE TIMELINE
+          </p>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-portfolio-text">
+              Internships &amp; industrial training.
+            </h2>
+            <p className="text-xs font-mono text-portfolio-textSecondary">
+              Embedded Systems · VLSI · Analytics
+            </p>
+          </div>
+        </div>
 
-        {/* Timeline Layout */}
-        <div className="relative border-l-2 border-[#8B5CF6]/35 ml-4 md:ml-6 space-y-10">
-          {visibleExperiences.map((exp, idx) => (
-            <motion.div
-              key={exp.role + exp.period + idx}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="relative pl-8 md:pl-10 group"
-            >
-              {/* Timeline Circuit Node Pin */}
-              <div className="absolute -left-[9px] top-2 h-4 w-4 rounded-full border-2 border-[#06B6D4] bg-portfolio-substrate group-hover:bg-[#06B6D4] group-hover:scale-125 transition-all duration-300 shadow-[0_0_10px_#06B6D4] flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
-              </div>
+        {/* Vertical Timeline */}
+        <div className="relative border-l border-portfolio-border ml-3 sm:ml-6 space-y-10 pl-6 sm:pl-10">
+          {displayed.map((item, idx) => (
+            <div key={idx} className="relative group">
+              {/* Timeline Pin Node */}
+              <div className="absolute -left-[31px] sm:-left-[47px] top-1.5 w-3 h-3 rounded-full bg-portfolio-bg border-2 border-portfolio-accent group-hover:scale-125 transition-transform" />
 
-              {/* Experience Card */}
-              <div className="bg-portfolio-card border border-portfolio-primary/25 hover:border-[#06B6D4]/50 rounded-xl p-5 sm:p-6 shadow-glow hover:shadow-[0_10px_30px_rgba(0,0,0,0.5),0_0_20px_rgba(6,182,212,0.2)] transition-all duration-300 relative overflow-hidden">
-                {/* Header Info */}
-                <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
-                  <div>
-                    <h3 className="text-lg font-bold text-portfolio-text group-hover:text-portfolio-cyan transition-colors duration-200 font-sans">
-                      {exp.role}
-                    </h3>
-                    <p className="text-sm font-semibold text-portfolio-primary font-mono mt-0.5">
-                      {exp.company}
-                    </p>
-                  </div>
-                  <div className="flex flex-col sm:items-end text-xs font-mono text-portfolio-textSecondary gap-1">
-                    <span className="flex items-center gap-1.5 text-cyan-300">
-                      <Calendar className="h-3.5 w-3.5 text-[#06B6D4]" />
-                      {exp.period}
-                    </span>
-                    <div className="flex flex-wrap items-center gap-2 sm:justify-end">
-                      {exp.location && (
-                        <span className="flex items-center gap-1 text-[#94A3B8]">
-                          <MapPin className="h-3.5 w-3.5 text-[#8B5CF6]" />
-                          {exp.location}
-                        </span>
-                      )}
-                      {exp.badge && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                          {exp.badge}
-                        </span>
-                      )}
-                    </div>
+              <div className="p-6 rounded-2xl bg-portfolio-card border border-portfolio-border hover:border-portfolio-accent/40 transition-all duration-300 space-y-3.5 shadow-card">
+                {/* Meta Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+                  <span className="text-portfolio-accent font-semibold">
+                    {item.company}
+                  </span>
+                  <div className="flex items-center gap-1.5 text-portfolio-textSecondary">
+                    <Calendar className="h-3.5 w-3.5" />
+                    <span>{item.period}</span>
                   </div>
                 </div>
 
-                <ul className="list-disc pl-4 space-y-1.5 text-portfolio-textSecondary text-sm leading-relaxed">
-                  {exp.details.map((detail, detIdx) => (
-                    <li key={detIdx}>{detail}</li>
-                  ))}
-                </ul>
+                {/* Role Title */}
+                <h3 className="text-lg font-bold text-portfolio-text tracking-tight">
+                  {item.role}
+                </h3>
 
-                {exp.certificate && (
-                  <div className="mt-4 pt-3 border-t border-portfolio-primary/10 flex items-center">
+                {/* Summary */}
+                <p className="text-sm text-portfolio-textSecondary leading-relaxed font-sans">
+                  {item.summary}
+                </p>
+
+                {/* Stack Pills & Certificate Link */}
+                <div className="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-portfolio-border">
+                  <div className="flex flex-wrap gap-1.5">
+                    {item.stack.map((s, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="px-2 py-0.5 rounded text-[11px] font-mono bg-portfolio-subtle text-portfolio-textSecondary border border-portfolio-border"
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+
+                  {item.certificate && (
                     <a
-                      href={encodeURI(exp.certificate)}
+                      href={item.certificate}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#070b16]/70 border border-portfolio-primary/25 hover:border-portfolio-cyan text-xs font-mono font-semibold text-cyan-300 hover:text-white transition-all duration-200 shadow-[0_0_10px_rgba(6,182,212,0.1)] hover:shadow-[0_0_15px_rgba(6,182,212,0.25)] group/cert"
+                      className="inline-flex items-center gap-1 text-xs font-mono text-portfolio-accent hover:text-portfolio-accentHover transition-colors"
                     >
-                      <ExternalLink className="h-3.5 w-3.5 text-[#06B6D4] group-hover/cert:text-cyan-200 transition-colors" />
-                      <span>View Certificate</span>
-                      <span aria-hidden="true" className="text-cyan-400 group-hover/cert:translate-x-0.5 transition-transform duration-200">→</span>
+                      <FileText className="h-3.5 w-3.5" />
+                      <span>Certificate (PDF)</span>
+                      <ExternalLink className="h-2.5 w-2.5" />
                     </a>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        {/* Show More / Show Less Toggle Button */}
-        {experiences.length > 3 && (
-          <div className="flex justify-center pt-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setShowAll(!showAll)}
-              className="px-6 py-2.5 rounded-lg bg-portfolio-substrate border border-portfolio-primary/30 hover:border-portfolio-cyan text-portfolio-text hover:text-portfolio-cyan text-xs font-mono font-semibold transition-all duration-200 shadow-[0_0_15px_rgba(139,92,246,0.2)] flex items-center gap-2 cursor-pointer"
-            >
-              <span>{showAll ? "COLLAPSE_LOGS [SHOW LESS]" : `EXPAND_LOGS [${experiences.length - 3} MORE ENTRIES]`}</span>
-              {showAll ? (
-                <ChevronUp className="h-4 w-4" />
-              ) : (
-                <ChevronDown className="h-4 w-4" />
-              )}
-            </motion.button>
-          </div>
-        )}
+        {/* Expand / Collapse Button */}
+        <div className="text-center pt-2">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-portfolio-border hover:border-portfolio-accent text-xs font-mono font-medium text-portfolio-text hover:text-portfolio-accent bg-portfolio-card transition-all"
+          >
+            <span>{showAll ? "Show Less" : `+ ${experiences.length - 4} Earlier Internships`}</span>
+            {showAll ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          </button>
+        </div>
       </div>
     </section>
   );
