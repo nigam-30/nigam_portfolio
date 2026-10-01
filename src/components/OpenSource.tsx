@@ -15,7 +15,7 @@ const repos: RepoItem[] = [
     name: "Design-of-a-Modular-Digital-Data-Monitoring-Unit",
     url: "https://github.com/nigam-30/Design-of-a-Modular-Digital-Data-Monitoring-Unit",
     description:
-      "Modular Digital Event Monitoring Unit (DEMU) with Moore FSM, AMBA APB4 slave interface, and Python AutoArchitect synthesis flow.",
+      "Design of a Modular Digital Data Monitoring Unit (DEMU) with Moore FSM, AMBA APB4 slave interface, and Python AutoArchitect synthesis flow.",
     language: "Verilog",
     langColor: "#84b6d4",
   },
