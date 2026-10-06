@@ -111,9 +111,21 @@ npm run start
 
 ## 🚀 Deployment
 
-The site is configured for continuous deployment on [Vercel](https://vercel.com/):
-- Any push to `main` automatically triggers an optimized production build and deployment.
-- Static generation (SSG) pre-renders all project routes and case studies for optimal performance and SEO.
+### 1. Deploy on Render (Web Service / Blueprint)
+This repository includes a [`render.yaml`](render.yaml) blueprint specification for zero-friction deployment:
+1. Go to the [Render Dashboard](https://dashboard.render.com/) and click **New +** → **Blueprint** (or **Web Service**).
+2. Connect your GitHub repository (`nigam-30/nigam_portfolio`).
+3. If configuring manually as a **Web Service**:
+   - **Environment / Runtime**: `Node`
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm run start`
+   - **Plan**: `Free`
+   - **Environment Variable**: `NODE_VERSION` = `20.18.0`
+4. Click **Create Web Service**. Render will compile the Next.js production build and automatically listen on Render's assigned port.
+
+### 2. Deploy on Vercel
+1. The site is connected to [Vercel](https://vercel.com/) via GitHub integration.
+2. Every push to `main` automatically triggers an optimized production build and deployment with global edge CDN caching.
 
 ---
 
