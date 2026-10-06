@@ -100,7 +100,7 @@ npm run start
 
 ## 🚀 Deployment
 
-### 1. Deploy on Render (Web Service / Blueprint)
+### Deploy on Render (Web Service / Blueprint)
 This repository includes a [`render.yaml`](render.yaml) blueprint specification for zero-friction deployment:
 1. Go to the [Render Dashboard](https://dashboard.render.com/) and click **New +** → **Blueprint** (or **Web Service**).
 2. Connect your GitHub repository (`nigam-30/nigam_portfolio`).
@@ -111,10 +111,6 @@ This repository includes a [`render.yaml`](render.yaml) blueprint specification 
    - **Plan**: `Free`
    - **Environment Variable**: `NODE_VERSION` = `20.18.0`
 4. Click **Create Web Service**. Render will compile the Next.js production build and automatically listen on Render's assigned port.
-
-
-
----
 
 ## 📄 License & Attribution
 
