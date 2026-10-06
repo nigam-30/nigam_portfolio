@@ -112,9 +112,7 @@ This repository includes a [`render.yaml`](render.yaml) blueprint specification 
    - **Environment Variable**: `NODE_VERSION` = `20.18.0`
 4. Click **Create Web Service**. Render will compile the Next.js production build and automatically listen on Render's assigned port.
 
-### 2. Deploy on Vercel
-1. The site is connected to [Vercel](https://vercel.com/) via GitHub integration.
-2. Every push to `main` automatically triggers an optimized production build and deployment with global edge CDN caching.
+
 
 ---
 
