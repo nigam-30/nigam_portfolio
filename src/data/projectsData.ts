@@ -23,7 +23,7 @@ export interface Project {
   id: string;
   title: string;
   secondaryLabel?: string;
-  category: "HARDWARE / VLSI" | "SYSTEMS & SOFTWARE" | "DATA & ML";
+  category: "HARDWARE / VLSI" | "SYSTEMS & SOFTWARE" | "SYSTEMS & FINTECH" | "DATA & ML";
   shortDescription: string;
   stack: string[];
   specs?: ProjectSpec[];
@@ -254,44 +254,50 @@ export const projectsData: Project[] = [
     ],
   },
   {
-    id: "bank-management-system",
-    title: "Bank Management System",
-    secondaryLabel: "C++ Core Engine",
-    category: "SYSTEMS & SOFTWARE",
+    id: "credence-core",
+    title: "Credence Core — Digital Banking & Wealth Terminal",
+    secondaryLabel: "C++ Core Engine & Flask",
+    category: "SYSTEMS & FINTECH",
     shortDescription:
-      "A full-stack banking simulator driven by a high-performance C++ algorithmic core utilizing STL unordered_map for O(1) account lookups, binary-search vectors, and transaction linked lists. Interfaced with a Python Flask REST API via process-pipe interprocess communication (IPC) to manage transactions, EMI loan calculators, and fixed deposits. Features local file persistence and dynamic financial statement generation.",
+      "An institutional-grade digital banking and wealth terminal powered by a high-performance C++20 algorithmic core leveraging std::unordered_map for O(1) account lookup, binary-search indexed ledgers, and transaction linked lists. Interfaced with a Python Flask REST middleware via IPC pipes to execute atomic transfers, loan amortizations, and Wealth Hub modules (Automated SIPs, Fixed Deposits, and 24K Digital Gold spot trading). Features multi-tier JSON persistence and ReportLab-driven certified PDF statement generation.",
     stack: [
-      "C++",
+      "C++20",
       "Python Flask",
       "IPC (Process Pipes)",
       "Data Structures",
+      "Tailwind CSS",
       "REST API",
-      "File I/O",
+      "ReportLab (PDF)",
     ],
     specs: [
-      { label: "Account Lookup", value: "O(1) Average Complexity" },
-      { label: "Core Backend", value: "C++ STL Data Structures" },
-      { label: "IPC Mechanism", value: "Standard Process Pipes" },
-      { label: "Storage", value: "Deterministic File Persistence" },
+      { label: "Account Lookup", value: "O(1) std::unordered_map" },
+      { label: "Core Backend", value: "C++20 Algorithmic Engine" },
+      { label: "IPC Middleware", value: "Process Pipes (IPC)" },
+      { label: "Ledger Indexing", value: "Binary Search Ledgers" },
+      { label: "Wealth Hub", value: "SIPs, FDs & 24K Digital Gold" },
+      { label: "PDF Statements", value: "ReportLab Certified Engine" },
+      { label: "Data Persistence", value: "Multi-Tier JSON Storage" },
+      { label: "Presentation", value: "Tailwind CSS Responsive UI" },
     ],
     overview:
-      "A banking simulation platform combining low-level C++ algorithmic performance with a responsive web dashboard. It supports multi-feature account administration, funds transfers, debit card controls, investment desks, and loan calculation.",
+      "Credence Core is an institutional-grade digital banking and wealth terminal combining the computational speed of a C++20 core engine with an interactive web dashboard. It powers end-to-end account lifecycle administration, zero-latency funds transfers, loan amortization schedules, automated wealth management (SIPs, Fixed Deposits, and 24K Digital Gold spot trading), and verifiable financial statement generation.",
     problem:
-      "Managing high-concurrency account queries without database bloat requires efficient algorithmic in-memory data structures and low-overhead communication between systems-level code and web presentation layers.",
+      "Managing high-concurrency account queries and atomic wealth transactions without database bloat requires efficient algorithmic in-memory data structures and low-overhead communication between systems-level code and web presentation layers.",
     architecture:
-      "The C++ core (account.cpp, loan.cpp, fd.cpp) implements hashed tables for constant-time account lookups and sorted indexes for binary search operations. A Python Flask middleware interacts with the compiled C++ executable via standard process pipes (IPC) and exposes clean REST endpoints.",
+      "Constructed around a decoupled two-tier architecture: A compiled C++20 algorithmic core maintains in-memory state using std::unordered_map for constant-time O(1) account resolution, binary-search vectors for ledger lookups, and transaction linked lists. A Python Flask REST layer orchestrates HTTP requests and streams commands directly to the C++ binary via standard IPC process pipes.",
     implementation:
-      "Implemented account lifecycle management, UPI/Netbanking fund routing, dynamic EMI calculation, and transaction history linked lists. Integrated automated PDF statement creation using ReportLab with zero external SQL database dependencies.",
+      "Engineered atomic transaction pipelines, loan amortizations, automated SIP wealth accumulation algorithms, fixed-deposit maturity calculators, and real-time 24K digital gold trading. Implemented multi-tier JSON persistence and integrated ReportLab for dynamic, certified PDF bank statement generation with zero external SQL database dependencies.",
     results:
-      "Achieved sub-millisecond core transaction execution with persistent file-based state serialization across session restarts.",
-    github: "https://github.com/nigam-30/Bank-Management-System",
+      "Achieved sub-millisecond core transaction execution, deterministic data persistence across session restarts, and deployed a live interactive terminal on Render.",
+    github: "https://github.com/nigam-30/Credence-Core",
+    liveDemo: "https://credence-core.onrender.com",
     reports: [
       {
-        label: "Bank System Project Report",
-        filename: "Bank_System_Project_Report.pdf",
+        label: "Credence Core Project Report",
+        filename: "Credence-Core_Project_Report.pdf",
         githubUrl:
-          "https://github.com/nigam-30/Bank-Management-System/blob/main/Bank_System_Project_Report.pdf",
-        localUrl: "/reports/Bank_System_Project_Report.pdf",
+          "https://github.com/nigam-30/Credence-Core/blob/main/Credence-Core_Project_Report.pdf",
+        localUrl: "/reports/Credence-Core_Project_Report.pdf",
       },
     ],
   },

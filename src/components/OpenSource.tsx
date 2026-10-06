@@ -36,10 +36,10 @@ const repos: RepoItem[] = [
     langColor: "#f34b7d",
   },
   {
-    name: "Bank-Management-System",
-    url: "https://github.com/nigam-30/Bank-Management-System",
+    name: "Credence-Core",
+    url: "https://github.com/nigam-30/Credence-Core",
     description:
-      "Full-stack banking simulator with high-performance C++ STL unordered_map backend and Python Flask REST endpoints.",
+      "Institutional-grade digital banking and wealth terminal powered by a C++20 core algorithmic engine, IPC process pipes, and Python Flask REST middleware.",
     language: "C++ / Python",
     langColor: "#3572A5",
   },

@@ -212,7 +212,7 @@ export default function Projects() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs font-mono text-portfolio-accent hover:text-portfolio-accentHover transition-colors"
                       >
-                        <span>Demo</span>
+                        <span>{project.id === "credence-core" ? "Live Terminal" : "Demo"}</span>
                         <ExternalLink className="h-2.5 w-2.5" />
                       </a>
                     </>
@@ -222,7 +222,7 @@ export default function Projects() {
                 {/* Report link if present */}
                 {project.reports && project.reports.length > 0 && (
                   <a
-                    href={project.reports[0].githubUrl}
+                    href={project.reports[0].localUrl || project.reports[0].githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-xs font-mono text-portfolio-textSecondary hover:text-portfolio-accent transition-colors"
