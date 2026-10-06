@@ -16,9 +16,7 @@ Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **
 - **Featured Hardware IP Showcase**: Detailed technical presentations of synthesizable RTL designs, including an 8-bit Moore FSM sensor monitor with AMBA APB4 bus integration and an 8-bit 3-stage pipelined RISC processor.
 - **Hardware Telemetry & Metrics**: Verifiable post-synthesis FPGA implementation figures (100 MHz clock closure, +6.720 ns WNS margin, Slice LUT and register utilization on Xilinx Spartan-7 fabric).
 - **Categorized Engineering Skills**: Granular breakdown of RTL Design & HDL (Verilog, SystemVerilog), EDA & Simulation workflows (Vivado, Yosys, ModelSim), Embedded Systems, and AI Hardware tooling.
-- **Experience & Education Timeline**: Interactive chronological view of industry training, internships, and academic coursework at SAKEC Mumbai.
-- **Direct Inbox Dispatch**: Server-validated contact form with automatic dispatch to `mehtanigam3024@gmail.com` and one-click mail client fallback.
-- **Fully Responsive & Accessible**: Zero-layout-shift architecture optimized for mobile, tablet, and desktop viewports with fast server-side generation.
+- **Direct Contact Channel**: Direct communication channels to `mehtanigam3024@gmail.com` with one-click email client dispatch, instant clipboard copying, GitHub, and LinkedIn.
 
 ---
 
