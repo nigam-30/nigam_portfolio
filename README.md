@@ -4,7 +4,7 @@ A modern, high-performance digital hardware and semiconductor engineering portfo
 
 Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**, designed around a restrained silicon dark aesthetic (`#07090D`) with electric cyan accents (`#00D9FF`).
 
-[![Live Site](https://img.shields.io/badge/Live_Site-nigam--portfolio.vercel.app-00D9FF?style=for-the-badge&logo=vercel&logoColor=black)](https://nigam-portfolio.vercel.app/)
+[![Live Site](https://img.shields.io/badge/Live_Site-nigam--portfolio.vercel.app-00D9FF?style=for-the-badge&logo=vercel&logoColor=black)](https://nigam-portfolio.onrender.com/)
 [![GitHub Profile](https://img.shields.io/badge/GitHub-nigam--30-8B5CF6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nigam-30)
 
 ---
