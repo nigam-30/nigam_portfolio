@@ -9,17 +9,6 @@ Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **
 
 ---
 
-## ⚡ Core Highlights & Architectural Features
-
-- **Semiconductor Engineering Identity**: Minimalist, high-signal dark theme inspired by modern silicon design labs, NVIDIA/AMD technical aesthetics, and clean hardware documentation.
-- **Deep Architectural Case Studies**: Dedicated case study routes (`/projects/[id]`) for major projects with timing closure metrics, gate-level schematics, simulation waveforms, and embedded PDF reports.
-- **Featured Hardware IP Showcase**: Detailed technical presentations of synthesizable RTL designs, including an 8-bit Moore FSM sensor monitor with AMBA APB4 bus integration and an 8-bit 3-stage pipelined RISC processor.
-- **Hardware Telemetry & Metrics**: Verifiable post-synthesis FPGA implementation figures (100 MHz clock closure, +6.720 ns WNS margin, Slice LUT and register utilization on Xilinx Spartan-7 fabric).
-- **Categorized Engineering Skills**: Granular breakdown of RTL Design & HDL (Verilog, SystemVerilog), EDA & Simulation workflows (Vivado, Yosys, ModelSim), Embedded Systems, and AI Hardware tooling.
-- **Direct Contact Channel**: Direct communication channels to `mehtanigam3024@gmail.com` with one-click email client dispatch, instant clipboard copying, GitHub, and LinkedIn.
-
----
-
 ## 📊 Featured Engineering Projects & Technical Documentation
 
 | Project | Domain | Architecture & Stack | Repository & Demo | Documentation & Reports |
