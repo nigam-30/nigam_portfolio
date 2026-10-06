@@ -13,10 +13,10 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
+  const [theme, setThemeState] = useState<Theme>("light");
 
   useEffect(() => {
-    // Read persisted theme or system preference
+    // Read persisted theme or default to light
     const stored = localStorage.getItem("nm_portfolio_theme") as Theme | null;
     if (stored === "dark" || stored === "light") {
       setThemeState(stored);
@@ -24,11 +24,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.classList.add(stored);
       document.documentElement.setAttribute("data-theme", stored);
     } else {
-      // Default to dark per prompt instructions
-      setThemeState("dark");
+      // Default to light (white theme)
+      setThemeState("light");
       document.documentElement.classList.remove("dark", "light");
-      document.documentElement.classList.add("dark");
-      document.documentElement.setAttribute("data-theme", "dark");
+      document.documentElement.classList.add("light");
+      document.documentElement.setAttribute("data-theme", "light");
     }
   }, []);
 

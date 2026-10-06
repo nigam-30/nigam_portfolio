@@ -75,26 +75,26 @@ export default function Hero() {
             </div>
 
             {/* Social / Professional Channels */}
-            <div className="flex items-center gap-6 pt-4 text-xs font-mono text-portfolio-textSecondary">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-4 text-xs font-mono text-portfolio-textSecondary">
               <a
                 href="https://www.linkedin.com/in/nigam-mehta-83830528b/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 hover:text-portfolio-accent transition-colors"
               >
-                <Linkedin className="h-3.5 w-3.5" />
+                <Linkedin className="h-3.5 w-3.5 flex-shrink-0" />
                 <span>LinkedIn</span>
               </a>
-              <span className="text-portfolio-border">•</span>
+              <span className="text-portfolio-border hidden sm:inline">•</span>
               <a
                 href="mailto:mehtanigam3024@gmail.com"
-                className="flex items-center gap-1.5 hover:text-portfolio-accent transition-colors"
+                className="flex items-center gap-1.5 hover:text-portfolio-accent transition-colors break-all"
               >
-                <Mail className="h-3.5 w-3.5" />
+                <Mail className="h-3.5 w-3.5 flex-shrink-0" />
                 <span>mehtanigam3024@gmail.com</span>
               </a>
-              <span className="text-portfolio-border">•</span>
-              <span className="text-portfolio-textSecondary/80">Mumbai, IN</span>
+              <span className="text-portfolio-border hidden sm:inline">•</span>
+              <span className="text-portfolio-textSecondary/90 whitespace-nowrap">Mumbai, IN</span>
             </div>
           </motion.div>
 
