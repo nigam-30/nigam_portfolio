@@ -196,7 +196,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       delivered,
-      debug: debugMessage,
       message: `Message sent! It will reach mehtanigam3024@gmail.com directly.`,
     });
   } catch (error) {
