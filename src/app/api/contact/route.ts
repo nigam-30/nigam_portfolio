@@ -97,6 +97,7 @@ export async function POST(request: NextRequest) {
     // 5. Send message directly to mehtanigam3024@gmail.com
     const recipientEmail = "mehtanigam3024@gmail.com";
     let delivered = false;
+    let debugMessage = "";
 
     // A. Primary: Dispatch via Brevo Transactional Email REST API if configured
     if (process.env.BREVO_API_KEY) {
@@ -105,12 +106,12 @@ export async function POST(request: NextRequest) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "api-key": process.env.BREVO_API_KEY,
+            "api-key": process.env.BREVO_API_KEY.trim(),
             Accept: "application/json",
           },
           body: JSON.stringify({
             sender: {
-              name: `${sanitizedName} (via Portfolio)`,
+              name: `${sanitizedName} (Portfolio)`,
               email: recipientEmail,
             },
             to: [
@@ -123,7 +124,7 @@ export async function POST(request: NextRequest) {
               name: sanitizedName,
               email: sanitizedEmail,
             },
-            subject: `New Portfolio Inquiry from ${sanitizedName}`,
+            subject: `Portfolio Message from ${sanitizedName}`,
             htmlContent: `
               <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
                 <h2 style="color: #0f172a; margin-top: 0; font-size: 20px; border-bottom: 2px solid #00d9ff; padding-bottom: 8px;">New Portfolio Contact Message</h2>
@@ -140,13 +141,18 @@ export async function POST(request: NextRequest) {
 
         if (brevoRes.ok) {
           delivered = true;
+          debugMessage = "Delivered successfully via Brevo";
         } else {
           const errData = await brevoRes.text();
+          debugMessage = `Brevo API error (${brevoRes.status}): ${errData}`;
           console.error("Brevo API error:", errData);
         }
       } catch (brevoErr) {
+        debugMessage = `Brevo dispatch exception: ${brevoErr instanceof Error ? brevoErr.message : String(brevoErr)}`;
         console.error("Brevo dispatch error:", brevoErr);
       }
+    } else {
+      debugMessage = "BREVO_API_KEY environment variable is not defined";
     }
 
     // B. Fallback: FormSubmit direct webhook
@@ -157,9 +163,6 @@ export async function POST(request: NextRequest) {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Referer: "https://nigam-portfolio.vercel.app/",
-            Origin: "https://nigam-portfolio.vercel.app",
-            "User-Agent": "Nigam-Portfolio-Mailer/1.0",
           },
           body: JSON.stringify({
             name: sanitizedName,
@@ -173,8 +176,13 @@ export async function POST(request: NextRequest) {
 
         if (formSubmitRes.ok) {
           delivered = true;
+          debugMessage += " | Fallback FormSubmit sent";
+        } else {
+          const fsErr = await formSubmitRes.text();
+          debugMessage += ` | FormSubmit status ${formSubmitRes.status}: ${fsErr}`;
         }
       } catch (mailError) {
+        debugMessage += ` | FormSubmit exception: ${mailError instanceof Error ? mailError.message : String(mailError)}`;
         console.error("Mail forward fallback error:", mailError);
       }
     }
@@ -182,12 +190,13 @@ export async function POST(request: NextRequest) {
     console.log(
       `[MESSAGE INBOX FORWARD] To: ${recipientEmail} | From: ${sanitizedName} <${sanitizedEmail}> | Status: ${
         delivered ? "SENT" : "QUEUED"
-      }`
+      } | Debug: ${debugMessage}`
     );
 
     return NextResponse.json({
       success: true,
       delivered,
+      debug: debugMessage,
       message: `Message sent! It will reach mehtanigam3024@gmail.com directly.`,
     });
   } catch (error) {
