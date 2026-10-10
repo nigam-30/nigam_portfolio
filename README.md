@@ -13,7 +13,7 @@ Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **
 
 | Project | Domain | Architecture & Stack | Repository & Demo | Documentation & Reports |
 | :--- | :--- | :--- | :--- | :--- |
-| **Design of a Modular Digital Data Monitoring Unit** | `Digital IP / RTL` | Verilog HDL, AMBA APB4 Slave, Moore FSM, Spartan-7 FPGA, Yosys | [🔗 GitHub Repo](https://github.com/nigam-30/Design-of-a-Modular-Digital-Data-Monitoring-Unit) | [📄 Phase 1 Report (PDF)](public/reports/Digital_data_monitor_Phase_1_report.pdf)<br>[📄 Phase 2 Report (PDF)](public/reports/Digital_data_monitor_Phase_2_Report.pdf) |
+| **Design of a Modular Digital Data Monitoring Unit** | `Digital IP / RTL` | Verilog HDL, AMBA APB4 Slave, Moore FSM, Spartan-7 FPGA, Vivado XSim | [🔗 GitHub Repo](https://github.com/nigam-30/Design-of-a-Modular-Digital-Data-Monitoring-Unit) | [📄 Phase 1 Report (PDF)](public/reports/Digital_data_monitor_Phase_1_report.pdf)<br>[📄 Phase 2 Report (PDF)](public/reports/Digital_data_monitor_Phase_2_Report.pdf) |
 | **8-bit Pipelined Processor** | `Processor Architecture` | Synthesizable Verilog HDL, 3-Stage Pipeline, RAW Hazard Unit, Vivado XSim | [🔗 GitHub Repo](https://github.com/nigam-30/pipelined_processor) | [📄 Processor Report (PDF)](public/reports/Pipelined_Processor_Project_Report.pdf) |
 | **EntropyX — Cryptographic Suite & Vault** | `Systems / Cryptography` | C++14 Engine (>400k ops/sec), AES-256-GCM, PBKDF2, Bloom Filter, React 19 | [🔗 GitHub Repo](https://github.com/nigam-30/entropyx)<br>[🌐 Live Demo](https://entropyx-password-suite.vercel.app/) | [📄 EntropyX Report (PDF)](public/reports/Entropyx_Project_Report.pdf) |
 | **Credence Core — Digital Banking & Wealth Terminal** | `SYSTEMS & FINTECH` | C++20, Python Flask, IPC (Process Pipes), Data Structures, Tailwind CSS, REST API, ReportLab (PDF) | [🔗 GitHub Repo](https://github.com/nigam-30/Credence-Core)<br>[🌐 Live Terminal](https://credence-core.onrender.com) | [📄 Project Report (PDF)](public/reports/Credence-Core_Project_Report.pdf) |
@@ -43,7 +43,6 @@ Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **
 │   │   ├── Certifications.tsx    # Credential badges modal & verification links
 │   │   ├── Contact.tsx           # Contact form with direct inbox dispatch
 │   │   ├── CurrentlyBuilding.tsx # Real-time active research & hardware prototypes
-│   │   ├── EngineeringMetrics.tsx# Quantitative post-synthesis hardware metrics
 │   │   ├── Experience.tsx        # Career & internship chronological timeline
 │   │   ├── Footer.tsx            # Footer & copyright notices
 │   │   ├── Hero.tsx              # Minimalist hero with key tags & profile presentation

@@ -44,15 +44,14 @@ export const projectsData: Project[] = [
     title: "Design of a Modular Digital Data Monitoring Unit",
     category: "HARDWARE / VLSI",
     shortDescription:
-      "A synthesizable 8-bit digital monitoring IP in Verilog HDL engineered for real-time sensor anomaly detection without CPU polling overhead. Features a 3-state Moore FSM (IDLE, ALARM, COOLDOWN), configurable signed/unsigned threshold comparators, sticky alarm assertion, and a fault-value capture register. Integrated with an AMBA APB4 memory-mapped slave interface for microprocessor control and verified on Xilinx Spartan-7 FPGA at 100 MHz (+6.720 ns WNS) alongside a Python/Yosys synthesis pipeline.",
+      "A synthesizable 8-bit digital monitoring IP in Verilog HDL engineered for real-time sensor anomaly detection without CPU polling overhead. Features a 3-state Moore FSM (IDLE, ALARM, COOLDOWN), configurable signed/unsigned threshold comparators, sticky alarm assertion, and a fault-value capture register. Integrated with an AMBA APB4 memory-mapped slave interface for microprocessor control and verified on Xilinx Spartan-7 FPGA at 100 MHz (+6.720 ns WNS) with timing closure in Xilinx Vivado.",
     stack: [
       "Verilog HDL",
       "AMBA APB4",
       "Moore FSM",
       "Xilinx Vivado",
-      "Yosys Synthesis",
-      "Python (AutoArchitect)",
-      "NetlistSVG",
+      "Spartan-7 FPGA",
+      "Vivado XSim",
     ],
     specs: [
       { label: "Architecture", value: "8-bit Modular Core" },
@@ -71,7 +70,7 @@ export const projectsData: Project[] = [
     architecture:
       "Phase 1 established an 8-bit RTL core driven by a 3-state Moore Finite State Machine (IDLE, ALARM, COOLDOWN) featuring dual-mode (signed/unsigned) magnitude comparators, a sticky alarm register, and a fault-value latch. Phase 2 wrapped the core into an AMBA APB4 slave interface with 5 memory-mapped registers (0x00 CONTROL, 0x04 SENSOR_DATA, 0x08 THRESHOLD, 0x0C STATUS/ALARM, 0x10 FAULT_CAPTURE) allowing microprocessor configuration and software acknowledgement.",
     implementation:
-      "Implemented in modular, synthesizable Verilog HDL. Verified through cycle-accurate testbenches covering bus read/write transfers across PCLK, PRESETn, PADDR, PWRITE, PSEL, PENABLE, PWDATA, PRDATA, and PREADY. Developed AutoArchitect in Python to script Yosys synthesis, extract logic gate cell metrics, and generate NetlistSVG schematics.",
+      "Implemented in modular, synthesizable Verilog HDL. Verified through cycle-accurate testbenches covering bus read/write transfers across PCLK, PRESETn, PADDR, PWRITE, PSEL, PENABLE, PWDATA, PRDATA, and PREADY. Verified synthesis and timing implementation targeting Xilinx Spartan-7 fabric using Vivado Design Suite, extracting gate-level utilization and cell metrics.",
     results:
       "Synthesized and targeted to Xilinx Spartan-7 fabric. The complete APB4-wrapped peripheral utilizes only 52 Slice LUTs and 23 Slice Registers (<1% of Spartan-7 xc7s15). Timing analysis under a 100 MHz clock constraint (10 ns period) verified positive Worst Negative Slack of +6.720 ns and zero Total Negative Slack (TNS).",
     technicalSections: [

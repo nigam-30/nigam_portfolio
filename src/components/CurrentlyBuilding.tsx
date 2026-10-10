@@ -23,11 +23,11 @@ const buildingTracks: BuildingItem[] = [
     tech: ["Systolic Arrays", "Quantized Compute", "Edge AI", "Dataflow Optimization"],
   },
   {
-    area: "RTL Automation",
-    focus: "AutoArchitect & Scripted EDA Toolchains",
+    area: "SoC Interconnects",
+    focus: "On-Chip AMBA Bus Architecture",
     description:
-      "Extending Python-based toolchains that automate open-source Yosys logic synthesis, generate SVG visual schematics, and auto-generate synthesizable AMBA register wrappers.",
-    tech: ["Python", "Yosys", "NetlistSVG", "RTL Scripting"],
+      "Designing multi-master interconnect protocols, APB/AXI memory-mapped register interfaces, and hardware arbitration schemes for modular SoC integration.",
+    tech: ["AMBA AXI/APB", "Bus Protocols", "Memory Mapping", "RTL Integration"],
   },
   {
     area: "FPGA Systems",

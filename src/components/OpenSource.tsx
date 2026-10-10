@@ -15,7 +15,7 @@ const repos: RepoItem[] = [
     name: "Design-of-a-Modular-Digital-Data-Monitoring-Unit",
     url: "https://github.com/nigam-30/Design-of-a-Modular-Digital-Data-Monitoring-Unit",
     description:
-      "Design of a Modular Digital Data Monitoring Unit with Moore FSM, AMBA APB4 slave interface, and Python AutoArchitect synthesis flow.",
+      "Design of a Modular Digital Data Monitoring Unit with Moore FSM, AMBA APB4 slave interface, and Xilinx Spartan-7 FPGA timing closure.",
     language: "Verilog",
     langColor: "#84b6d4",
   },

@@ -31,11 +31,10 @@ const categories: SkillCategory[] = [
     skills: [
       { name: "Xilinx Vivado", note: "Elaboration, synthesis, implementation" },
       { name: "Vivado XSim", note: "Cycle-accurate behavioral verification" },
-      { name: "Yosys Open Synthesis", note: "Scripted gate-level synthesis" },
       { name: "Cadence EDA Tools", note: "VLSI academic & virtual flow training" },
-      { name: "NetlistSVG", note: "Automated schematic generation" },
       { name: "Static Timing Analysis", note: "WNS/TNS constraint validation" },
       { name: "AMBA APB4 Protocol", note: "Memory-mapped slave integration" },
+      { name: "FPGA Implementation", note: "Bitstream generation & pin mapping" },
     ],
   },
   {
