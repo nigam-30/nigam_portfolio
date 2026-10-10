@@ -98,32 +98,85 @@ export async function POST(request: NextRequest) {
     const recipientEmail = "mehtanigam3024@gmail.com";
     let delivered = false;
 
-    try {
-      // Forward to FormSubmit mailer service
-      const formSubmitRes = await fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Referer: "https://nigam-portfolio.vercel.app/",
-          Origin: "https://nigam-portfolio.vercel.app",
-          "User-Agent": "Nigam-Portfolio-Mailer/1.0",
-        },
-        body: JSON.stringify({
-          name: sanitizedName,
-          email: sanitizedEmail,
-          message: sanitizedMessage,
-          _subject: `New Portfolio Inquiry from ${sanitizedName} (${sanitizedEmail})`,
-          _replyto: sanitizedEmail,
-          _template: "table",
-        }),
-      });
+    // A. Primary: Dispatch via Brevo Transactional Email REST API if configured
+    if (process.env.BREVO_API_KEY) {
+      try {
+        const brevoRes = await fetch("https://api.brevo.com/v3/smtp/email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": process.env.BREVO_API_KEY,
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            sender: {
+              name: `${sanitizedName} (via Portfolio)`,
+              email: recipientEmail,
+            },
+            to: [
+              {
+                name: "Nigam Mehta",
+                email: recipientEmail,
+              },
+            ],
+            replyTo: {
+              name: sanitizedName,
+              email: sanitizedEmail,
+            },
+            subject: `New Portfolio Inquiry from ${sanitizedName}`,
+            htmlContent: `
+              <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
+                <h2 style="color: #0f172a; margin-top: 0; font-size: 20px; border-bottom: 2px solid #00d9ff; padding-bottom: 8px;">New Portfolio Contact Message</h2>
+                <p style="margin: 12px 0; font-size: 14px; color: #334155;"><strong>From:</strong> ${sanitizedName} (&lt;<a href="mailto:${sanitizedEmail}" style="color: #0284c7;">${sanitizedEmail}</a>&gt;)</p>
+                <div style="margin-top: 20px; padding: 16px; background-color: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                  <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #1e293b; white-space: pre-wrap;">${sanitizedMessage}</p>
+                </div>
+                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0 16px 0;" />
+                <p style="font-size: 12px; color: #64748b; margin: 0;">Sent directly from your portfolio contact form (nigam-portfolio.onrender.com)</p>
+              </div>
+            `,
+          }),
+        });
 
-      if (formSubmitRes.ok) {
-        delivered = true;
+        if (brevoRes.ok) {
+          delivered = true;
+        } else {
+          const errData = await brevoRes.text();
+          console.error("Brevo API error:", errData);
+        }
+      } catch (brevoErr) {
+        console.error("Brevo dispatch error:", brevoErr);
       }
-    } catch (mailError) {
-      console.error("Mail forward error:", mailError);
+    }
+
+    // B. Fallback: FormSubmit direct webhook
+    if (!delivered) {
+      try {
+        const formSubmitRes = await fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Referer: "https://nigam-portfolio.vercel.app/",
+            Origin: "https://nigam-portfolio.vercel.app",
+            "User-Agent": "Nigam-Portfolio-Mailer/1.0",
+          },
+          body: JSON.stringify({
+            name: sanitizedName,
+            email: sanitizedEmail,
+            message: sanitizedMessage,
+            _subject: `New Portfolio Inquiry from ${sanitizedName} (${sanitizedEmail})`,
+            _replyto: sanitizedEmail,
+            _template: "table",
+          }),
+        });
+
+        if (formSubmitRes.ok) {
+          delivered = true;
+        }
+      } catch (mailError) {
+        console.error("Mail forward fallback error:", mailError);
+      }
     }
 
     console.log(

@@ -42,7 +42,6 @@ Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **
 │   │   ├── About.tsx             # Editorial biography & engineering focus areas
 │   │   ├── Certifications.tsx    # Credential badges modal & verification links
 │   │   ├── Contact.tsx           # Contact form with direct inbox dispatch
-│   │   ├── CurrentlyBuilding.tsx # Real-time active research & hardware prototypes
 │   │   ├── Experience.tsx        # Career & internship chronological timeline
 │   │   ├── Footer.tsx            # Footer & copyright notices
 │   │   ├── Hero.tsx              # Minimalist hero with key tags & profile presentation
@@ -66,7 +65,7 @@ Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Email Forwarding**: [FormSubmit](https://formsubmit.co/) direct dispatch to `mehtanigam3024@gmail.com`
+- **Email Forwarding**: [Brevo](https://www.brevo.com/) Transactional API / Direct dispatch to `mehtanigam3024@gmail.com`
 
 ---
 
