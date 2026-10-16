@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { ExternalLink, ArrowRight, FileText } from "lucide-react";
+import { ExternalLink, FileText } from "lucide-react";
 import { Github } from "@/components/icons";
 import { projectsData } from "@/data/projectsData";
 
@@ -21,9 +20,6 @@ export default function Projects() {
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-portfolio-text">
               Digital hardware architectures, verified IPs &amp; systems.
             </h2>
-            <p className="text-xs font-mono text-portfolio-textSecondary">
-              Click any project for deep architectural case studies
-            </p>
           </div>
         </div>
 
@@ -49,10 +45,8 @@ export default function Projects() {
           </div>
 
           <div className="space-y-3">
-            <h3 className="text-2xl sm:text-3xl font-bold text-portfolio-text group-hover:text-portfolio-accent transition-colors tracking-tight">
-              <Link href={`/projects/${featuredProject.id}`}>
-                {featuredProject.title}
-              </Link>
+            <h3 className="text-2xl sm:text-3xl font-bold text-portfolio-text tracking-tight">
+              {featuredProject.title}
             </h3>
             <p className="text-portfolio-textSecondary text-base sm:text-lg leading-relaxed max-w-4xl font-normal">
               {featuredProject.shortDescription}
@@ -94,22 +88,14 @@ export default function Projects() {
           {/* Bottom Action Bar */}
           <div className="pt-4 border-t border-portfolio-border flex flex-wrap items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href={`/projects/${featuredProject.id}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-portfolio-text text-portfolio-bg font-mono text-xs font-semibold hover:bg-portfolio-accent hover:text-black transition-colors"
-              >
-                <span>View Project Case Study</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-
               <a
                 href={featuredProject.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg border border-portfolio-border hover:border-portfolio-accent text-portfolio-text text-xs font-mono hover:text-portfolio-accent transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-portfolio-text text-portfolio-bg font-mono text-xs font-semibold hover:bg-portfolio-accent hover:text-black transition-colors"
               >
                 <Github className="h-3.5 w-3.5" />
-                <span>GitHub</span>
+                <span>GitHub Repository</span>
                 <ExternalLink className="h-3 w-3" />
               </a>
             </div>
@@ -155,10 +141,8 @@ export default function Projects() {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl sm:text-2xl font-bold text-portfolio-text group-hover:text-portfolio-accent transition-colors tracking-tight">
-                  <Link href={`/projects/${project.id}`}>
-                    {project.title}
-                  </Link>
+                <h3 className="text-xl sm:text-2xl font-bold text-portfolio-text tracking-tight">
+                  {project.title}
                 </h3>
 
                 {/* Concise 1-3 Sentence Description */}
@@ -182,21 +166,11 @@ export default function Projects() {
               {/* Bottom Actions */}
               <div className="pt-4 border-t border-portfolio-border flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <Link
-                    href={`/projects/${project.id}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-portfolio-text hover:text-portfolio-accent transition-colors"
-                  >
-                    <span>View Project</span>
-                    <ArrowRight className="h-3 w-3" />
-                  </Link>
-
-                  <span className="text-portfolio-border">•</span>
-
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-mono text-portfolio-textSecondary hover:text-portfolio-text transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono text-portfolio-textSecondary hover:text-portfolio-accent transition-colors"
                   >
                     <Github className="h-3.5 w-3.5" />
                     <span>GitHub</span>
