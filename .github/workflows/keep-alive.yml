@@ -1,0 +1,25 @@
+name: Keep Render Services Awake
+
+on:
+  schedule:
+    # Runs every 10 minutes (cron runs in UTC)
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Allows manual triggering from the Actions tab in GitHub
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render Services
+        run: |
+          echo "Sending keep-alive pings to prevent Render free-tier spin-down..."
+          
+          # Ping Portfolio
+          STATUS_PORTFOLIO=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://nigam-portfolio.onrender.com" || echo "failed")
+          echo "nigam-portfolio response: $STATUS_PORTFOLIO"
+          
+          # Ping Credence Core backend
+          STATUS_CREDENCE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://credence-core.onrender.com" || echo "failed")
+          echo "credence-core response: $STATUS_CREDENCE"
+          
+          echo "Keep-alive ping completed!"
