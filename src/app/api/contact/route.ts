@@ -1,28 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { Redis } from "@upstash/redis";
-import { Ratelimit } from "@upstash/ratelimit";
 
 export const runtime = "edge";
-
-// Initialize Upstash Redis if configured
-const redis =
-  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
-    ? new Redis({
-        url: process.env.UPSTASH_REDIS_REST_URL,
-        token: process.env.UPSTASH_REDIS_REST_TOKEN,
-      })
-    : null;
-
-// Contact form rate limiter (5 submissions per IP per hour)
-const contactRatelimit = redis
-  ? new Ratelimit({
-      redis: redis,
-      limiter: Ratelimit.slidingWindow(5, "1 h"),
-      analytics: true,
-      prefix: "@upstash/ratelimit/contact",
-    })
-  : null;
 
 function sanitizeInput(str: string): string {
   if (typeof str !== "string") return "";
@@ -36,11 +15,29 @@ function isValidEmail(email: string): boolean {
 
 export async function POST(request: NextRequest) {
   try {
-    // 1. Rate Limiting Check
-    const ip = request.ip ?? request.headers.get("x-forwarded-for") ?? "127.0.0.1";
-
-    if (contactRatelimit) {
+    // 1. Rate Limiting Check (Only if Upstash credentials exist)
+    if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
       try {
+        const { Redis } = await import("@upstash/redis/cloudflare");
+        const { Ratelimit } = await import("@upstash/ratelimit");
+
+        const redis = new Redis({
+          url: process.env.UPSTASH_REDIS_REST_URL,
+          token: process.env.UPSTASH_REDIS_REST_TOKEN,
+        });
+
+        const contactRatelimit = new Ratelimit({
+          redis: redis,
+          limiter: Ratelimit.slidingWindow(5, "1 h"),
+          analytics: true,
+          prefix: "@upstash/ratelimit/contact",
+        });
+
+        const ip =
+          request.headers.get("cf-connecting-ip") ??
+          request.headers.get("x-forwarded-for") ??
+          "127.0.0.1";
+
         const { success, reset } = await contactRatelimit.limit(ip);
         if (!success) {
           const retryAfter = Math.max(0, Math.ceil((reset - Date.now()) / 1000));
@@ -135,7 +132,7 @@ export async function POST(request: NextRequest) {
                   <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #1e293b; white-space: pre-wrap;">${sanitizedMessage}</p>
                 </div>
                 <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0 16px 0;" />
-                <p style="font-size: 12px; color: #64748b; margin: 0;">Sent directly from your portfolio contact form (nigam-portfolio.onrender.com)</p>
+                <p style="font-size: 12px; color: #64748b; margin: 0;">Sent directly from your portfolio contact form (nigam-portfolio.nigammehta.workers.dev)</p>
               </div>
             `,
           }),

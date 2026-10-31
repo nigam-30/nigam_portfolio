@@ -33,7 +33,17 @@ export default function Contact() {
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
+      let data: { error?: string; message?: string } = {};
+      try {
+        data = await res.json();
+      } catch {
+        throw new Error(
+          res.ok
+            ? "Unexpected response from server."
+            : `Server error (${res.status}). Please try again or email directly.`
+        );
+      }
+
       if (!res.ok) {
         throw new Error(data.error || "Failed to deliver message.");
       }
