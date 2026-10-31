@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, ArrowDown, Moon, Sun } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -89,7 +89,7 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Right Action: Theme Toggle & Resume Link */}
+          {/* Right Action: Theme Toggle */}
           <div className="hidden md:flex items-center space-x-4">
             <button
               onClick={toggleTheme}
@@ -102,16 +102,6 @@ export default function Navbar() {
                 <Moon className="h-4 w-4 text-portfolio-textSecondary hover:text-portfolio-accent transition-colors" />
               )}
             </button>
-
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-portfolio-border hover:border-portfolio-accent text-xs font-mono font-medium text-portfolio-text hover:text-portfolio-accent bg-portfolio-card/50 hover:bg-portfolio-card transition-all duration-200 shadow-sm"
-            >
-              <span>Resume</span>
-              <ArrowDown className="h-3 w-3" />
-            </a>
           </div>
 
           {/* Mobile Actions & Menu Button */}
@@ -163,19 +153,6 @@ export default function Navbar() {
                   </a>
                 );
               })}
-
-              <div className="pt-3 border-t border-portfolio-border">
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg bg-portfolio-card border border-portfolio-border text-portfolio-text text-sm font-mono font-medium hover:border-portfolio-accent"
-                >
-                  <span>Resume</span>
-                  <ArrowDown className="h-4 w-4" />
-                </a>
-              </div>
             </div>
           </motion.div>
         )}

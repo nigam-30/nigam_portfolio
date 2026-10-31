@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowDown, Mail, ExternalLink, Copy, Check, Send, CheckCircle2, AlertCircle } from "lucide-react";
+import { Mail, ExternalLink, Copy, Check, Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { Github, Linkedin } from "@/components/icons";
 
 export default function Contact() {
@@ -129,16 +129,6 @@ export default function Contact() {
             >
               <Linkedin className="h-4 w-4" />
               <span>LinkedIn ↗</span>
-            </a>
-
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-portfolio-text text-portfolio-bg hover:bg-portfolio-accent hover:text-black text-sm font-mono font-semibold transition-colors"
-            >
-              <span>Download Resume</span>
-              <ArrowDown className="h-4 w-4" />
             </a>
           </div>
 
