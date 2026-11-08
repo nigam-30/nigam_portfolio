@@ -105,7 +105,7 @@ export default function Projects() {
               {featuredProject.reports.map((report, idx) => (
                 <a
                   key={idx}
-                  href={report.githubUrl}
+                  href={report.localUrl || report.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-portfolio-border hover:border-portfolio-accent text-portfolio-textSecondary hover:text-portfolio-text text-xs font-mono transition-colors"
