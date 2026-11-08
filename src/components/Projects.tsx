@@ -186,7 +186,7 @@ export default function Projects() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs font-mono text-portfolio-accent hover:text-portfolio-accentHover transition-colors"
                       >
-                        <span>{project.id === "credence-core" ? "Live Terminal" : "Demo"}</span>
+                        <span>Demo</span>
                         <ExternalLink className="h-2.5 w-2.5" />
                       </a>
                     </>
