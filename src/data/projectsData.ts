@@ -42,6 +42,7 @@ export const projectsData: Project[] = [
   {
     id: "design-of-a-modular-digital-data-monitoring-unit",
     title: "Design of a Modular Digital Data Monitoring Unit",
+    secondaryLabel: "FPGA IP Core",
     category: "HARDWARE / VLSI",
     shortDescription:
       "A synthesizable 8-bit digital monitoring IP in Verilog HDL engineered for real-time sensor anomaly detection without CPU polling overhead. Features a 3-state Moore FSM (IDLE, ALARM, COOLDOWN), configurable signed/unsigned threshold comparators, sticky alarm assertion, and a fault-value capture register. Integrated with an AMBA APB4 memory-mapped slave interface for microprocessor control and verified on Xilinx Spartan-7 FPGA at 100 MHz (+6.720 ns WNS) with timing closure in Xilinx Vivado.",
