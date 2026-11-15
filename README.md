@@ -4,7 +4,7 @@ A modern, high-performance digital hardware and semiconductor engineering portfo
 
 Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**, designed around a restrained silicon dark aesthetic (`#07090D`) with electric cyan accents (`#00D9FF`).
 
-[![Live Site](https://img.shields.io/badge/Live_Site-https://nigam-portfolio.nigammehta.workers.dev/-00D9FF?style=for-the-badge&logo=vercel&logoColor=black)](https://nigam-portfolio.nigammehta.workers.dev/)
+[![Live Site](https://img.shields.io/badge/Live_Site-nigam--portfolio.nigammehta.workers.dev-00D9FF?style=for-the-badge&logo=cloudflare&logoColor=white)](https://nigam-portfolio.nigammehta.workers.dev/)
 [![GitHub Profile](https://img.shields.io/badge/GitHub-nigam--30-8B5CF6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nigam-30)
 
 ---
@@ -15,10 +15,8 @@ Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **
 | :--- | :--- | :--- | :--- | :--- |
 | **Design of a Modular Digital Data Monitoring Unit** | `Digital IP / RTL` | Verilog HDL, AMBA APB4 Slave, Moore FSM, Spartan-7 FPGA, Vivado XSim | [🔗 GitHub Repo](https://github.com/nigam-30/Design-of-a-Modular-Digital-Data-Monitoring-Unit) | [📄 Phase 1 Report (PDF)](public/reports/Digital_data_monitor_Phase_1_report.pdf)<br>[📄 Phase 2 Report (PDF)](public/reports/Digital_data_monitor_Phase_2_Report.pdf) |
 | **8-bit Pipelined Processor** | `Processor Architecture` | Synthesizable Verilog HDL, 3-Stage Pipeline, RAW Hazard Unit, Vivado XSim | [🔗 GitHub Repo](https://github.com/nigam-30/pipelined_processor) | [📄 Processor Report (PDF)](public/reports/Pipelined_Processor_Project_Report.pdf) |
+| **FileFlow: Offline Desktop Automation & High-Throughput Deduplication Engine** | `Systems & Software` | Python 3.11+, Win32 API, Edge WebView2, FastAPI, React 18, SHA-256, SQLite | [🔗 GitHub Repo](https://github.com/nigam-30/fileflow) | [📄 FileFlow Report (PDF)](public/reports/FileFlow%20Report.pdf) |
 | **EntropyX — Cryptographic Suite & Vault** | `Systems / Cryptography` | C++14 Engine (>400k ops/sec), AES-256-GCM, PBKDF2, Bloom Filter, React 19 | [🔗 GitHub Repo](https://github.com/nigam-30/entropyx)<br>[🌐 Live Demo](https://entropyx-password-suite.vercel.app/) | [📄 EntropyX Report (PDF)](public/reports/Entropyx_Project_Report.pdf) |
-| **Credence Core — Digital Banking & Wealth Terminal** | `SYSTEMS & FINTECH` | C++20, Python Flask, IPC (Process Pipes), Data Structures, Tailwind CSS, REST API, ReportLab (PDF) | [🔗 GitHub Repo](https://github.com/nigam-30/Credence-Core)<br>[🌐 Live Terminal](https://credence-core.onrender.com) | [📄 Project Report (PDF)](public/reports/Credence-Core_Project_Report.pdf) |
-| **Rail Nova** | `Distributed Systems` | Python FastAPI, SQLite, SQLAlchemy ORM, WebSockets, JWT Auth | [🔗 GitHub Repo](https://github.com/nigam-30/Rail-Nova) | [📄 Rail Nova Report (PDF)](public/reports/Rail_Nova_Project_Report.pdf) |
-| **Telecom Customer Churn Analytics** | `ML / Predictive Analytics` | Python, SQL, Scikit-learn, SMOTE Resampling, SHAP Explainability, Power BI | [🔗 GitHub Repo](https://github.com/nigam-30/Telecom_Churn_Analysis) | [📄 Churn Report (PDF)](public/reports/Telecom_Churn_Analysis_Report.pdf) |
 
 ---
 
