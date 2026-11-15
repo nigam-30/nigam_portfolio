@@ -207,6 +207,86 @@ export const projectsData: Project[] = [
     ],
   },
   {
+    id: "fileflow",
+    title: "FileFlow: Offline Desktop Automation & High-Throughput Deduplication Engine",
+    secondaryLabel: "Offline Systems",
+    category: "SYSTEMS & SOFTWARE",
+    shortDescription:
+      "Architected a privacy-first, local-first automation platform designed to tame filesystem clutter without cloud dependencies or recurring subscriptions. Engineered an asynchronous observer using Windows filesystem APIs with thread-safe debouncing to eliminate I/O race conditions during active downloads. Developed a pluggable metadata extraction pipeline parsing document text (pypdf), EXIF camera parameters (Pillow), and dynamic regex capture groups. Implemented a multi-threaded 4-stage deduplication pipeline that prunes >99.9% of non-duplicates in microseconds before executing cryptographic SHA-256 checks and bitwise stream verification. Optimized system efficiency using Page Visibility suspension and Win32 EmptyWorkingSet memory management, achieving sub-35 MB background memory consumption on 4 GB RAM systems.",
+    stack: [
+      "Python 3.11+",
+      "Win32 API",
+      "Edge WebView2",
+      "FastAPI",
+      "React 18",
+      "TypeScript",
+      "Tailwind CSS",
+      "SHA-256",
+      "pypdf",
+      "Pillow",
+      "SQLite",
+    ],
+    specs: [
+      { label: "Pruning Rate", value: ">99.9% Early Filtered" },
+      { label: "Verification Level", value: "Bit-for-Bit Stream Match" },
+      { label: "Memory Footprint", value: "20–35 MB (Win32 Trimmed)" },
+      { label: "Idle CPU Overhead", value: "0.0–0.1% CPU" },
+      { label: "Quiescence Window", value: "1.2s Debounce Latency" },
+      { label: "Deduplication", value: "4-Stage Progressive" },
+      { label: "Telemetry & Cloud", value: "Zero (100% Offline)" },
+      { label: "Application Shell", value: "Decoupled Edge WebView2" },
+    ],
+    overview:
+      "FileFlow is an open-source, privacy-first desktop automation platform and high-throughput deduplication engine engineered specifically for Windows environments. It continuously monitors landing directories (such as Downloads and Desktop), extracts deep file metadata, executes deterministic rule-based sorting, and reclaims redundant storage through a mathematically proven 4-stage progressive deduplication pipeline—all while sustaining an ultra-lightweight 20–35 MB background memory footprint.",
+    problem:
+      "Modern users accumulate dozens of heterogeneous files daily, creating digital dumping grounds that introduce cognitive fatigue and silent storage exhaustion. Existing commercial solutions either mandate recurring subscriptions, transmit file metadata to cloud servers, or run heavy Electron shells consuming 150–300 MB of RAM at idle. Furthermore, naive filesystem automation triggers file-lock contention during multi-part downloads, and standard duplicate finders risk data loss by relying solely on shallow filename or partial hash comparisons.",
+    architecture:
+      "Built on a decoupled client-server architecture communicating via an authenticated loopback REST API (FastAPI / Uvicorn on 127.0.0.1:8765) rendered through Microsoft Edge WebView2. Directory monitoring utilizes the Win32 ReadDirectoryChangesW subsystem via watchdog, paired with a thread-safe debounce coordinator (sliding window with file-handle lock validation) to guarantee file write quiescence before processing. A SQLite state database maintains processed-file hashes and 12-hour rotating audit logs to ensure idempotency.",
+    implementation:
+      "Engineered a pluggable metadata extraction pipeline parsing PDF text streams (pypdf), EXIF camera parameters (Pillow), and dynamic regex capture groups into a normalized token dictionary for automated file routing. Developed a 4-stage deduplication pipeline: Stage 1 groups by exact byte size (O(n), pruning >91%); Stage 2 performs parallel head+tail (16 KB) dual MD5 hashing across a thread pool (pruning 98.6% of survivors); Stage 3 calculates full chunked SHA-256 checksums; and Stage 4 executes pairwise bit-for-bit stream verification to guarantee zero false positives. Enforced OS-level working set management using Win32 EmptyWorkingSet API and webview Page Visibility API suspension.",
+    results:
+      "Empirical benchmarks across 10,000 heterogeneous files demonstrated >99.9% non-duplicate candidate pruning in microseconds before complete SHA-256 and bitwise passes, achieving zero false positives. In real-world Downloads testing, automated sorting executed within 1.2 seconds of file quiescence without I/O contention. System memory profiling confirmed active foreground usage of 48–62 MB and minimized tray idle consumption of 20–35 MB with 0.0–0.1% CPU usage, representing an ~80% reduction compared to standard Electron wrappers.",
+    technicalSections: [
+      {
+        title: "System Architecture & Subsystem Boundaries",
+        content:
+          "High-level architectural overview of the FileFlow desktop platform, illustrating the interaction between the Win32 ReadDirectoryChangesW watcher, asynchronous debouncing coordinator, multimodal metadata extraction pipeline, progressive deduplication engine, and the Edge WebView2 presentation layer communicating over local loopback.",
+        image: {
+          url: "/projects/fileflow/fileflow-architecture.png",
+          caption: "High-Level Subsystem Architecture and Data Flow of FileFlow",
+        },
+      },
+      {
+        title: "FileFlow Desktop Dashboard & Rule Management",
+        content:
+          "The FileFlow reactive dashboard styled with Tailwind CSS, displaying active organization rules, monitored folder bindings, system status metrics, execution counters, and quick-action toolbars.",
+        image: {
+          url: "/projects/fileflow/fileflow-dashboard.png",
+          caption: "FileFlow Graphical User Interface (Light Mode) and Active Rule Configurations",
+        },
+      },
+      {
+        title: "Automated Directory Organization Before & After",
+        content:
+          "Demonstration of automated organization: resolving cluttered download landing zones into structured subdirectories (PDFs, DOCX, Images, Archives) based on extracted metadata and deterministic Boolean rule sets within 1.2s of download completion.",
+        image: {
+          url: "/projects/fileflow/fileflow-organized-directory.png",
+          caption: "Structured Directory Layout post FileFlow Rule Execution",
+        },
+      },
+    ],
+    github: "https://github.com/nigam-30/fileflow",
+    reports: [
+      {
+        label: "FileFlow Project Report",
+        filename: "FileFlow Report.pdf",
+        githubUrl:
+          "https://github.com/nigam-30/fileflow/blob/main/FileFlow%20Report.pdf",
+        localUrl: "/reports/FileFlow Report.pdf",
+      },
+    ],
+  },
+  {
     id: "entropyx",
     title: "EntropyX — Cryptographic Suite & Vault",
     secondaryLabel: "Zero-Knowledge Vault",

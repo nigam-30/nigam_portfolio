@@ -28,6 +28,14 @@ const repos: RepoItem[] = [
     langColor: "#84b6d4",
   },
   {
+    name: "fileflow",
+    url: "https://github.com/nigam-30/fileflow",
+    description:
+      "Offline desktop automation and high-throughput 4-stage deduplication engine with Win32 APIs, Edge WebView2, and sub-35 MB RAM footprint.",
+    language: "Python / TypeScript",
+    langColor: "#3572A5",
+  },
+  {
     name: "entropyx",
     url: "https://github.com/nigam-30/entropyx",
     description:
