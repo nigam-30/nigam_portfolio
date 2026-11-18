@@ -61,7 +61,11 @@ export const metadata: Metadata = {
       "Digital hardware design for intelligent systems. RTL Design · ASIC · FPGA · AI Hardware.",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" },
+    ],
+    apple: "/apple-icon.png",
   },
 };
 

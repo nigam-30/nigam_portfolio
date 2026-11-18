@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="chipBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E131F"/>
+      <stop offset="100%" stop-color="#070A10"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#00D9FF"/>
+    </linearGradient>
+    <linearGradient id="pinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#64748B"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Metallic IC Lead Pins (3 per side) -->
+  <g fill="url(#pinGrad)">
+    <!-- Top Pins -->
+    <rect x="18.5" y="0.5" width="5" height="6.5" rx="1.2"/>
+    <rect x="29.5" y="0.5" width="5" height="6.5" rx="1.2"/>
+    <rect x="40.5" y="0.5" width="5" height="6.5" rx="1.2"/>
+    <!-- Bottom Pins -->
+    <rect x="18.5" y="57" width="5" height="6.5" rx="1.2"/>
+    <rect x="29.5" y="57" width="5" height="6.5" rx="1.2"/>
+    <rect x="40.5" y="57" width="5" height="6.5" rx="1.2"/>
+    <!-- Left Pins -->
+    <rect x="0.5" y="18.5" width="6.5" height="5" rx="1.2"/>
+    <rect x="0.5" y="29.5" width="6.5" height="5" rx="1.2"/>
+    <rect x="0.5" y="40.5" width="6.5" height="5" rx="1.2"/>
+    <!-- Right Pins -->
+    <rect x="57" y="18.5" width="6.5" height="5" rx="1.2"/>
+    <rect x="57" y="29.5" width="6.5" height="5" rx="1.2"/>
+    <rect x="57" y="40.5" width="6.5" height="5" rx="1.2"/>
+  </g>
+
+  <!-- Silicon Package Body -->
+  <rect x="5" y="5" width="54" height="54" rx="8" fill="url(#chipBg)" stroke="#1E293B" stroke-width="1.8"/>
+
+  <!-- Inner Die Chamfer / Reticle Line -->
+  <rect x="9" y="9" width="46" height="46" rx="4.5" fill="none" stroke="#00D9FF" stroke-width="1" stroke-opacity="0.28"/>
+
+  <!-- Pin 1 Silicon Orientation Dot -->
+  <circle cx="13.5" cy="13.5" r="2.2" fill="url(#cyanGrad)"/>
+
+  <!-- Monogram: 'N' -->
+  <path d="M14 45 V19 H18.2 L26.3 37.5 V19 H30.5 V45 H26.3 L18.2 26.5 V45 Z" fill="#F8FAFC"/>
+
+  <!-- Monogram: 'M' -->
+  <path d="M33.5 45 V19 H37.7 L41.75 31.8 L45.8 19 H50 V45 H46.2 V26.8 L42.9 36.8 H40.6 L37.3 26.8 V45 Z" fill="#F8FAFC"/>
+</svg>
