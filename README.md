@@ -18,6 +18,14 @@ Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **
 | **FileFlow: Offline Desktop Automation & High-Throughput Deduplication Engine** | `Systems & Software` | Python 3.11+, Win32 API, Edge WebView2, FastAPI, React 18, SHA-256, SQLite | [🔗 GitHub Repo](https://github.com/nigam-30/fileflow) | [📄 FileFlow Report (PDF)](public/reports/FileFlow%20Report.pdf) |
 | **EntropyX — Cryptographic Suite & Vault** | `Systems / Cryptography` | C++14 Engine (>400k ops/sec), AES-256-GCM, PBKDF2, Bloom Filter, React 19 | [🔗 GitHub Repo](https://github.com/nigam-30/entropyx)<br>[🌐 Live Demo](https://entropyx-password-suite.vercel.app/) | [📄 EntropyX Report (PDF)](public/reports/Entropyx_Project_Report.pdf) |
 
+### ⚡ Architectural Deep Dive: FileFlow Desktop Platform
+
+<div align="center">
+  <img src="./public/projects/fileflow/fileflow-banner.png" alt="FileFlow Project Banner" width="100%" style="border-radius: 14px; margin-bottom: 14px;" />
+  <img src="./public/projects/fileflow/fileflow-architecture.png" alt="FileFlow System Architecture & Reactive Workflow" width="100%" style="border-radius: 14px; margin-bottom: 8px;" />
+  <p><em><b>Figure: FileFlow System Architecture & Reactive Workflow.</b> High-throughput local daemon featuring Win32 ReadDirectoryChangesW observation, sliding quiescence coordinator, multimodal metadata extraction (pypdf, Pillow), deterministic rule routing, and progressive 4-stage deduplication engine with sub-35 MB RAM footprint.</em></p>
+</div>
+
 ---
 
 ## 📂 Repository Structure
