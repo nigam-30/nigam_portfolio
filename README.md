@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="./public/portfolio-banner.png" alt="Nigam Mehta Portfolio Banner" width="100%" style="border-radius: 14px; margin-bottom: 20px;" />
+</div>
+
 # Electronics Engineering (VLSI Design & Technology) — Nigam Mehta
 
 A modern, high-performance digital hardware and semiconductor engineering portfolio for **Nigam Mehta**, an Electronics Engineering student specializing in **VLSI Design & Technology** at SAKEC Mumbai. Engineered to showcase synthesizable RTL architectures, FPGA implementations, ASIC verification flows, embedded computing, and AI hardware acceleration.
@@ -18,13 +22,22 @@ Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and **
 | **FileFlow: Offline Desktop Automation & High-Throughput Deduplication Engine** | `Systems & Software` | Python 3.11+, Win32 API, Edge WebView2, FastAPI, React 18, SHA-256, SQLite | [🔗 GitHub Repo](https://github.com/nigam-30/fileflow) | [📄 FileFlow Report (PDF)](public/reports/FileFlow%20Report.pdf) |
 | **EntropyX — Cryptographic Suite & Vault** | `Systems / Cryptography` | C++14 Engine (>400k ops/sec), AES-256-GCM, PBKDF2, Bloom Filter, React 19 | [🔗 GitHub Repo](https://github.com/nigam-30/entropyx)<br>[🌐 Live Demo](https://entropyx-password-suite.vercel.app/) | [📄 EntropyX Report (PDF)](public/reports/Entropyx_Project_Report.pdf) |
 
-### ⚡ Architectural Deep Dive: FileFlow Desktop Platform
+---
+
+## 🏛️ System Architecture & Reactive Delivery Flow
 
 <div align="center">
-  <img src="./public/projects/fileflow/fileflow-banner.png" alt="FileFlow Project Banner" width="100%" style="border-radius: 14px; margin-bottom: 14px;" />
-  <img src="./public/projects/fileflow/fileflow-architecture.png" alt="FileFlow System Architecture & Reactive Workflow" width="100%" style="border-radius: 14px; margin-bottom: 8px;" />
-  <p><em><b>Figure: FileFlow System Architecture & Reactive Workflow.</b> High-throughput local daemon featuring Win32 ReadDirectoryChangesW observation, sliding quiescence coordinator, multimodal metadata extraction (pypdf, Pillow), deterministic rule routing, and progressive 4-stage deduplication engine with sub-35 MB RAM footprint.</em></p>
+  <img src="./public/portfolio-architecture.png" alt="Nigam Portfolio System Architecture & Delivery Flow" width="100%" style="border-radius: 14px; margin: 16px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.12);" />
+  <p><em><b>Figure: Nigam Portfolio System Architecture & Delivery Flow.</b> Edge-rendered monolith with Cloudflare Anycast edge gateway, Next.js 14 App Router layout hydration, 60 FPS HTML5 silicon particle canvas, static hardware catalog (SSG), and serverless transactional contact dispatch.</em></p>
 </div>
+
+### ⚡ Client Hydration & Data Delivery Pipeline
+
+1. **Edge Gateway (Cloudflare Workers / OpenNext)**: Global Anycast edge routing with automatic SSL termination, static asset edge caching (<20ms TTFB), and zero cold-start execution.
+2. **Shell Hydration (Next.js 14 App Router)**: Root layout boundary hydration with `ThemeContext`, sticky glassmorphic navigation bar, and zero Cumulative Layout Shift (CLS).
+3. **Canvas & Physics Engine (60 FPS Hardware-Accelerated)**: Interactive `SiliconParticles` mesh with cursor attraction physics, custom interactive silicon pointer, and 3D tilt circuit card matrices.
+4. **Hardware Catalog & Modals (Type-Safe SSG)**: Dynamic routing across `projectsData.ts` with cycle-accurate Vivado XSim waveforms, gate-level schematics, and interactive credential verification modals.
+5. **Edge API Dispatch (Serverless Route Handlers)**: `/api/contact` edge endpoint secured with honeypot anti-spam validation and direct transactional email dispatch via the Brevo REST API.
 
 ---
 
